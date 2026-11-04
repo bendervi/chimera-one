@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  Chimera Cast receiver — bare test build.
+  Purpose: confirm the Developer Console registration (App ID + device serial)
+  and that the device plays plain-HTTP IPTV streams from an HTTPS receiver.
+  Shows a Chimera idle screen, the stock CAF player, and CAF's on-screen debug
+  overlay (for devices without Chrome remote debugging on :9222).
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Chimera Receiver (test)</title>
+    <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
+    <style>
+        html, body { margin: 0; height: 100%; background: #000; color: #fff;
+                     font-family: -apple-system, "Google Sans", Roboto, Helvetica, Arial, sans-serif; }
+        #idle { position: absolute; inset: 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; gap: 16px; z-index: 0; }
+        #idle h1 { font-size: 64px; font-weight: 700; margin: 0; letter-spacing: -1px; }
+        #idle p { font-size: 24px; opacity: 0.6; margin: 0; }
+        cast-media-player { position: absolute; inset: 0; z-index: 1;
+                            --splash-image: none; --logo-image: none; }
+    </style>
+</head>
+<body>
+    <div id="idle">
+        <h1>Chimera</h1>
+        <p>Test receiver · <span id="build"></span></p>
+    </div>
+    <cast-media-player></cast-media-player>
+
+    <script>
+        const BUILD = "test-1";
+        document.getElementById("build").textContent = BUILD;
+
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+        const LOG_TAG = "Chimera";
+
+        // On-screen log overlay — remote debugging (:9222) may not exist on Cast built-in TVs.
+        const debug = cast.debug.CastDebugLogger.getInstance();
+        context.addEventListener(cast.framework.system.EventType.READY, () => {
+            debug.setEnabled(true);
+            debug.showDebugLogs(true);
+            debug.info(LOG_TAG, "Receiver ready, build " + BUILD);
+            console.log("[Chimera] receiver ready, build " + BUILD);
+        });
+        debug.loggerLevelByEvents = {
+            "cast.framework.events.category.CORE": cast.framework.LoggerLevel.INFO,
+            "cast.framework.events.EventType.MEDIA_STATUS": cast.framework.LoggerLevel.DEBUG
+        };
+        debug.loggerLevelByTags = { [LOG_TAG]: cast.framework.LoggerLevel.DEBUG };
+
+        // Log every load so we can see what the sender asked for.
+        playerManager.setMessageInterceptor(cast.framework.messages.MessageType.LOAD, request => {
+            const media = request.media || {};
+            debug.info(LOG_TAG, "LOAD " + (media.contentType || "?") + " " + (media.contentUrl || media.contentId));
+            console.log("[Chimera] LOAD", media.contentType, media.contentUrl || media.contentId);
+            return request;
+        });
+        playerManager.addEventListener(cast.framework.events.EventType.ERROR, event => {
+            debug.error(LOG_TAG, "ERROR " + event.detailedErrorCode + " " + JSON.stringify(event.error || {}));
+            console.error("[Chimera] ERROR", event.detailedErrorCode, event.error);
+        });
+
+        const options = new cast.framework.CastReceiverOptions();
+        options.disableIdleTimeout = true;   // test build: stay up while we poke at it
+        options.maxInactivity = 3600;
+        context.start(options);
+    </script>
+</body>
+</html>
