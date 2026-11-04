@@ -16,7 +16,9 @@
         html, body { margin: 0; height: 100%; background: #000; color: #fff;
                      font-family: -apple-system, "Google Sans", Roboto, Helvetica, Arial, sans-serif; }
         #idle { position: absolute; inset: 0; display: flex; flex-direction: column;
-                align-items: center; justify-content: center; gap: 16px; z-index: 0; }
+                align-items: center; justify-content: center; gap: 16px; z-index: 2;
+                background: radial-gradient(circle at 50% 40%, #1c1c3a, #000 70%); }
+        #idle.hidden { display: none; }
         #idle h1 { font-size: 64px; font-weight: 700; margin: 0; letter-spacing: -1px; }
         #idle p { font-size: 24px; opacity: 0.6; margin: 0; }
         cast-media-player { position: absolute; inset: 0; z-index: 1;
@@ -31,7 +33,7 @@
     <cast-media-player></cast-media-player>
 
     <script>
-        const BUILD = "test-1";
+        const BUILD = "test-2";
         document.getElementById("build").textContent = BUILD;
 
         const context = cast.framework.CastReceiverContext.getInstance();
@@ -63,6 +65,13 @@
             debug.error(LOG_TAG, "ERROR " + event.detailedErrorCode + " " + JSON.stringify(event.error || {}));
             console.error("[Chimera] ERROR", event.detailedErrorCode, event.error);
         });
+
+        // Idle screen sits above the player; hide it while media is loaded, show it again when it ends.
+        const idle = document.getElementById("idle");
+        const E = cast.framework.events.EventType;
+        playerManager.addEventListener(E.PLAYER_LOAD_COMPLETE, () => idle.classList.add("hidden"));
+        [E.MEDIA_FINISHED, E.ERROR].forEach(t =>
+            playerManager.addEventListener(t, () => idle.classList.remove("hidden")));
 
         const options = new cast.framework.CastReceiverOptions();
         options.disableIdleTimeout = true;   // test build: stay up while we poke at it
