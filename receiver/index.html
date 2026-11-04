@@ -1,82 +1,90 @@
 <!DOCTYPE html>
 <!--
-  Chimera Cast receiver — bare test build.
-  Purpose: confirm the Developer Console registration (App ID + device serial)
-  and that the device plays plain-HTTP IPTV streams from an HTTPS receiver.
-  Shows a Chimera idle screen, the stock CAF player, and CAF's on-screen debug
-  overlay (for devices without Chrome remote debugging on :9222).
+  Chimera Cast receiver (Google Cast Web Receiver, App ID 269B640F).
+  Launched by Chimera's iOS sender (Google Cast SDK) and macOS sender (native
+  Cast v2). Our own UI over a plain <video> handed to CAF's PlayerManager —
+  no cast-media-player chrome. Layout/logic: receiver.css / receiver.js.
+  Local preview without a Cast device: index.html?demo=idle|loading|video|live|paused|music|photo|error
 -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Chimera Receiver (test)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chimera</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="receiver.css">
     <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
     <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
-    <style>
-        html, body { margin: 0; height: 100%; background: #000; color: #fff;
-                     font-family: -apple-system, "Google Sans", Roboto, Helvetica, Arial, sans-serif; }
-        #idle { position: absolute; inset: 0; display: flex; flex-direction: column;
-                align-items: center; justify-content: center; gap: 16px; z-index: 2;
-                background: radial-gradient(circle at 50% 40%, #1c1c3a, #000 70%); }
-        #idle.hidden { display: none; }
-        #idle h1 { font-size: 64px; font-weight: 700; margin: 0; letter-spacing: -1px; }
-        #idle p { font-size: 24px; opacity: 0.6; margin: 0; }
-        cast-media-player { position: absolute; inset: 0; z-index: 1;
-                            --splash-image: none; --logo-image: none; }
-    </style>
 </head>
-<body>
-    <div id="idle">
-        <h1>Chimera</h1>
-        <p>Test receiver · <span id="build"></span></p>
+<body data-state="idle" data-kind="video">
+    <!-- Ambient backdrop: blurred artwork (loading, music, photo) or the idle glow. -->
+    <div id="ambient" aria-hidden="true">
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <canvas id="ambient-art" width="16" height="9"></canvas>
     </div>
-    <cast-media-player></cast-media-player>
 
-    <script>
-        const BUILD = "test-2";
-        document.getElementById("build").textContent = BUILD;
+    <video id="video" playsinline></video>
+    <img id="photo" alt="">
 
-        const context = cast.framework.CastReceiverContext.getInstance();
-        const playerManager = context.getPlayerManager();
-        const LOG_TAG = "Chimera";
+    <!-- Idle: nothing is cast yet, or playback ended. -->
+    <section id="idle" class="screen">
+        <div class="logo" aria-hidden="true"></div>
+        <h1 class="wordmark">Chimera</h1>
+        <p class="tagline" data-i18n="ready"></p>
+    </section>
 
-        // On-screen log overlay — remote debugging (:9222) may not exist on Cast built-in TVs.
-        const debug = cast.debug.CastDebugLogger.getInstance();
-        context.addEventListener(cast.framework.system.EventType.READY, () => {
-            debug.setEnabled(true);
-            debug.showDebugLogs(true);
-            debug.info(LOG_TAG, "Receiver ready, build " + BUILD);
-            console.log("[Chimera] receiver ready, build " + BUILD);
-        });
-        debug.loggerLevelByEvents = {
-            "cast.framework.events.category.CORE": cast.framework.LoggerLevel.INFO,
-            "cast.framework.events.EventType.MEDIA_STATUS": cast.framework.LoggerLevel.DEBUG
-        };
-        debug.loggerLevelByTags = { [LOG_TAG]: cast.framework.LoggerLevel.DEBUG };
+    <!-- Loading: artwork + title while the stream opens. -->
+    <section id="loading" class="screen">
+        <img class="poster" id="loading-art" alt="">
+        <div class="loading-text">
+            <p class="eyebrow"><span class="live-pill" data-i18n="live"></span></p>
+            <h2 class="title" data-bind="title"></h2>
+            <p class="subtitle" data-bind="subtitle"></p>
+            <p class="status"><span class="spinner small" aria-hidden="true"></span><span data-i18n="loading"></span></p>
+        </div>
+    </section>
 
-        // Log every load so we can see what the sender asked for.
-        playerManager.setMessageInterceptor(cast.framework.messages.MessageType.LOAD, request => {
-            const media = request.media || {};
-            debug.info(LOG_TAG, "LOAD " + (media.contentType || "?") + " " + (media.contentUrl || media.contentId));
-            console.log("[Chimera] LOAD", media.contentType, media.contentUrl || media.contentId);
-            return request;
-        });
-        playerManager.addEventListener(cast.framework.events.EventType.ERROR, event => {
-            debug.error(LOG_TAG, "ERROR " + event.detailedErrorCode + " " + JSON.stringify(event.error || {}));
-            console.error("[Chimera] ERROR", event.detailedErrorCode, event.error);
-        });
+    <!-- Music Now Playing. -->
+    <section id="music" class="screen">
+        <img class="album" id="music-art" alt="">
+        <div class="music-text">
+            <h2 class="title" data-bind="title"></h2>
+            <p class="subtitle" data-bind="subtitle"></p>
+            <div class="progress-row" dir="ltr">
+                <span class="time elapsed">0:00</span>
+                <div class="track"><div class="fill"></div></div>
+                <span class="time remaining"></span>
+            </div>
+        </div>
+    </section>
 
-        // Idle screen sits above the player; hide it while media is loaded, show it again when it ends.
-        const idle = document.getElementById("idle");
-        const E = cast.framework.events.EventType;
-        playerManager.addEventListener(E.PLAYER_LOAD_COMPLETE, () => idle.classList.add("hidden"));
-        [E.MEDIA_FINISHED, E.ERROR].forEach(t =>
-            playerManager.addEventListener(t, () => idle.classList.remove("hidden")));
+    <!-- Video info bar: shown on start, pause, seek; hides itself while playing. -->
+    <section id="infobar">
+        <img class="thumb" id="info-art" alt="">
+        <div class="info-text">
+            <p class="eyebrow"><span class="live-pill" data-i18n="live"></span></p>
+            <h2 class="title" data-bind="title"></h2>
+            <p class="subtitle" data-bind="subtitle"></p>
+            <div class="progress-row" dir="ltr">
+                <span class="time elapsed">0:00</span>
+                <div class="track"><div class="fill"></div></div>
+                <span class="time remaining"></span>
+            </div>
+        </div>
+        <div class="paused-glyph" aria-hidden="true"></div>
+    </section>
 
-        const options = new cast.framework.CastReceiverOptions();
-        options.disableIdleTimeout = true;   // test build: stay up while we poke at it
-        options.maxInactivity = 3600;
-        context.start(options);
-    </script>
+    <div id="buffering" aria-hidden="true"><span class="spinner"></span></div>
+
+    <!-- Failure: the sender decides what happens next (e.g. plays it on the device). -->
+    <section id="error" class="screen">
+        <div class="error-glyph" aria-hidden="true">!</div>
+        <h2 class="title" data-i18n="errorTitle"></h2>
+        <p class="subtitle" data-i18n="errorBody"></p>
+    </section>
+
+    <script src="receiver.js"></script>
 </body>
 </html>
