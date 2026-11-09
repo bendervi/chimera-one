@@ -4,7 +4,10 @@
   Launched by Chimera's iOS sender (Google Cast SDK) and macOS sender (native
   Cast v2). Our own UI over a plain <video> handed to CAF's PlayerManager —
   no cast-media-player chrome. Layout/logic: receiver.css / receiver.js.
-  Local preview without a Cast device: index.html?demo=idle|loading|video|live|paused|music|photo|error
+  Local preview without a Cast device:
+  index.html?demo=idle|loading|video|live|paused|music|photo|error  (the first UI, for senders without `ui`)
+  index.html?demo=v2-video|v2-live|v2-paused|v2-scrub|v2-subtitles|v2-toast|v2-up-next|v2-zap|v2-loading|v2-error  (ui 2)
+  plus &lang=<code>.
 -->
 <html lang="en">
 <head>
@@ -17,7 +20,7 @@
     <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
     <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
 </head>
-<body data-state="idle" data-kind="video">
+<body data-state="idle" data-kind="video" data-ui="1">
     <!-- Ambient backdrop: blurred artwork (loading, music, photo) or the idle glow. -->
     <div id="ambient" aria-hidden="true">
         <div class="glow glow-a"></div>
@@ -26,6 +29,11 @@
     </div>
 
     <video id="video" playsinline></video>
+    <!-- ui 2: the last frame of the channel being left, dimmed while the next one opens. -->
+    <canvas id="freeze" aria-hidden="true"></canvas>
+    <div id="dim" aria-hidden="true"></div>
+    <!-- ui 2: the active subtitles, drawn by us in the app's subtitle style. -->
+    <div id="captions" aria-live="off"></div>
     <img id="photo" alt="">
 
     <!-- Idle: nothing is cast yet, or playback ended. -->
@@ -76,6 +84,44 @@
         <div class="paused-glyph" aria-hidden="true"></div>
     </section>
 
+    <!-- ui 2: the AVPlayer-style transport (replaces #infobar). -->
+    <section id="transport">
+        <div class="t-head">
+            <img class="t-logo" id="t-logo" alt="">
+            <div class="t-text">
+                <p class="t-eyebrow"><span class="live-pill" data-i18n="live"></span><span class="t-eyebrow-text"></span></p>
+                <h2 class="t-title"></h2>
+                <p class="t-line"></p>
+                <p class="t-overview"></p>
+            </div>
+        </div>
+        <div class="bar" dir="ltr">
+            <div class="bar-track"><div class="bar-fill"></div><div class="bar-head"></div></div>
+            <div class="bar-times">
+                <span class="t-elapsed"></span>
+                <span class="t-remaining"></span>
+            </div>
+        </div>
+    </section>
+
+    <div id="pause-glyph" aria-hidden="true"></div>
+
+    <!-- ui 2: a track choice made on the phone, confirmed briefly. -->
+    <div id="toast" role="status"></div>
+
+    <!-- ui 2: Up Next at the end of an episode; the phone has Play Next and Cancel. -->
+    <section id="upnext">
+        <img class="u-art" id="u-art" alt="">
+        <div class="u-text">
+            <p class="u-label" data-i18n="upNext"></p>
+            <p class="u-title"></p>
+        </div>
+        <div class="u-ring" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><circle class="u-ring-bg" cx="20" cy="20" r="17"></circle><circle class="u-ring-fill" cx="20" cy="20" r="17"></circle></svg>
+            <span class="u-seconds"></span>
+        </div>
+    </section>
+
     <div id="buffering" aria-hidden="true"><span class="spinner"></span></div>
 
     <!-- Failure: the sender decides what happens next (e.g. plays it on the device). -->
@@ -83,6 +129,7 @@
         <div class="error-glyph" aria-hidden="true">!</div>
         <h2 class="title" data-i18n="errorTitle"></h2>
         <p class="subtitle" data-i18n="errorBody"></p>
+        <p class="error-item" data-bind="title"></p>
     </section>
 
     <script src="receiver.js"></script>

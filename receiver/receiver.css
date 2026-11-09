@@ -213,10 +213,161 @@ body[data-state="paused"] .album { transform: scale(0.92); }
 }
 #error .title { font-size: 2.25rem; }
 
+/* =====================================================================
+   ui 2 — for senders that ask for it (LOAD customData.ui = 2): an
+   AVPlayer-style transport, paused details, styled captions, track
+   confirmations, Up Next and quick channel switches. Everything below is
+   scoped to body[data-ui="2"] or to elements only ui 2 shows.
+   ===================================================================== */
+
+body[data-ui="2"] #infobar { display: none; }
+body[data-ui="1"] #transport, body[data-ui="1"] #toast, body[data-ui="1"] #upnext,
+body[data-ui="1"] #pause-glyph, body[data-ui="1"] #freeze, body[data-ui="1"] #dim,
+body[data-ui="1"] .error-item, body[data-ui="1"] #captions { display: none; }
+
+/* ---------- Transport ---------- */
+
+#transport {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 16rem var(--margin-x) var(--margin-y);
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0) 100%);
+    opacity: 0; visibility: hidden;
+    transition: opacity 400ms var(--ease), visibility 0s linear 400ms;
+}
+#transport.shown { opacity: 1; visibility: visible; transition: opacity 400ms var(--ease), visibility 0s; }
+#transport .t-head, #transport .bar { transform: translateY(0.75rem); transition: transform 400ms var(--ease); }
+#transport.shown .t-head, #transport.shown .bar { transform: none; }
+
+.t-head { display: flex; align-items: flex-end; gap: 1.5rem; }
+.t-logo {
+    width: 5.5rem; height: 5.5rem; flex: none; object-fit: contain; padding: 0.75rem;
+    border-radius: 1rem; background: rgba(255,255,255,0.1); display: none;
+}
+body[data-kind="live"] .t-logo.has-art { display: block; }
+.t-text { min-width: 0; flex: 1; }
+.t-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; font-size: 1.125rem; font-weight: 600; color: var(--text-2); }
+.t-eyebrow .live-pill { display: none; }
+body[data-kind="live"] .t-eyebrow .live-pill { display: inline-flex; }
+.t-eyebrow.empty { display: none; }
+.t-title {
+    font-size: 2.375rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.12;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;
+}
+.t-line { font-size: 1.25rem; font-weight: 500; color: var(--text-2); margin-top: 0.4rem; }
+.t-line:empty { display: none; }
+/* Paused: what you're watching, like tvOS's info. */
+.t-overview {
+    font-size: 1.25rem; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,0.78);
+    max-width: 52rem; margin-top: 0.9rem;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+    max-height: 0; opacity: 0; transition: opacity 400ms var(--ease);
+}
+body[data-state="paused"] .t-overview:not(:empty) { max-height: 6rem; opacity: 1; }
+
+/* The bar: a thin capsule, elapsed time under the playhead, remaining at the end. */
+.bar { margin-top: 1.75rem; }
+.bar.hidden { display: none; }
+.bar-track { position: relative; height: 0.4rem; border-radius: 0.4rem; background: rgba(255,255,255,0.28); }
+.bar-fill {
+    position: absolute; inset: 0; border-radius: inherit; background: rgba(255,255,255,0.95);
+    transform-origin: left center; transform: scaleX(0); transition: transform 250ms linear;
+}
+.bar-head {
+    position: absolute; top: 50%; left: 0; width: 1.1rem; height: 1.1rem; margin: -0.55rem 0 0 -0.55rem;
+    border-radius: 50%; background: #fff; box-shadow: 0 0.15rem 0.6rem rgba(0,0,0,0.45);
+    transform: translateX(0) scale(0); transition: transform 250ms linear;
+}
+.bar-times { position: relative; height: 1.5rem; margin-top: 0.6rem; font-size: 1.0625rem; font-weight: 600; color: var(--text-2); font-feature-settings: "tnum" 1; }
+.bar-times span { position: absolute; top: 0; white-space: nowrap; transition: opacity 200ms var(--ease); }
+.t-elapsed { left: 0; transition: transform 250ms linear, opacity 200ms var(--ease); }
+.t-remaining { right: 0; }
+body.scrubbing .bar-fill, body.scrubbing .bar-head, body.scrubbing .t-elapsed { transition-duration: 90ms; }
+body.scrubbing .t-elapsed { color: var(--text); }
+body[data-state="paused"] .bar-head, body.scrubbing .bar-head { transform: translateX(var(--head-x, 0)) scale(1); }
+.bar-head { transform: translateX(var(--head-x, 0)) scale(0); }
+
+/* Paused: the picture dims, a pause glyph settles in the middle. */
+#dim { position: absolute; inset: 0; background: #000; opacity: 0; transition: opacity 500ms var(--ease); pointer-events: none; }
+body[data-ui="2"][data-state="paused"]:not([data-kind="music"]) #dim { opacity: 0.42; }
+#pause-glyph {
+    position: absolute; left: 50%; top: 42%; width: 6.5rem; height: 6.5rem; margin: -3.25rem 0 0 -3.25rem;
+    border-radius: 50%; background: rgba(255,255,255,0.16);
+    opacity: 0; transform: scale(0.88); transition: opacity 400ms var(--ease), transform 500ms var(--ease);
+}
+#pause-glyph::before, #pause-glyph::after { content: ""; position: absolute; top: 31%; width: 0.7rem; height: 38%; border-radius: 0.25rem; background: #fff; }
+#pause-glyph::before { left: 36%; }
+#pause-glyph::after { right: 36%; }
+body[data-state="paused"]:not([data-kind="music"]):not([data-kind="photo"]) #pause-glyph { opacity: 1; transform: none; }
+
+/* ---------- Channel switch: the last frame, dimmed, under the new channel's transport ---------- */
+
+#freeze { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; opacity: 0; transition: opacity 300ms var(--ease); }
+body.zapping #freeze { opacity: 1; transition: none; }
+body.zapping #dim { opacity: 0.5; }
+body.zapping #ambient { visibility: hidden; }
+
+/* ---------- Captions (drawn from the active text track's cues) ---------- */
+
+#captions {
+    position: absolute; left: var(--margin-x); right: var(--margin-x); bottom: 7vh;
+    display: flex; flex-direction: column; align-items: center; gap: 0.15em;
+    text-align: center; pointer-events: none; opacity: 0;
+    transition: transform 400ms var(--ease);
+}
+body.video-visible #captions { opacity: 1; }
+#captions.top { bottom: auto; top: 7vh; }
+#captions .cue { display: inline-block; max-width: 82vw; white-space: pre-line; line-height: 1.28; border-radius: 0.18em; }
+
+/* ---------- Track confirmation ---------- */
+
+#toast {
+    position: absolute; top: var(--margin-y); right: var(--margin-x);
+    padding: 0.75rem 1.4rem; border-radius: 2rem;
+    background: rgba(28,28,30,0.88); box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.35);
+    font-size: 1.1875rem; font-weight: 600;
+    opacity: 0; transform: translateY(-0.6rem); transition: opacity 300ms var(--ease), transform 400ms var(--ease);
+}
+#toast.shown { opacity: 1; transform: none; }
+[dir="rtl"] #toast { right: auto; left: var(--margin-x); }
+
+/* ---------- Up Next ---------- */
+
+#upnext {
+    position: absolute; right: var(--margin-x); bottom: var(--margin-y);
+    display: flex; align-items: center; gap: 1.25rem; width: 36rem; padding: 1rem 1.25rem 1rem 1rem;
+    border-radius: 1.25rem; background: rgba(28,28,30,0.92); box-shadow: 0 1rem 3rem rgba(0,0,0,0.5);
+    opacity: 0; visibility: hidden; transform: translateX(1.5rem);
+    transition: opacity 400ms var(--ease), transform 500ms var(--ease), visibility 0s linear 500ms;
+}
+#upnext.shown { opacity: 1; visibility: visible; transform: none; transition: opacity 400ms var(--ease), transform 500ms var(--ease), visibility 0s; }
+body.transport-shown #upnext.shown { transform: translateY(-11rem); }
+[dir="rtl"] #upnext { right: auto; left: var(--margin-x); }
+.u-art { height: 5.5rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.6rem; flex: none; background: var(--fill); }
+.u-art:not(.has-art) { display: none; }
+.u-text { flex: 1; min-width: 0; }
+.u-label { font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-2); }
+.u-title { font-size: 1.375rem; font-weight: 600; margin-top: 0.3rem; line-height: 1.25; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.u-ring { position: relative; width: 3.75rem; height: 3.75rem; flex: none; }
+.u-ring.hidden { display: none; }
+.u-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.u-ring circle { fill: none; stroke-width: 3; }
+.u-ring-bg { stroke: rgba(255,255,255,0.2); }
+.u-ring-fill { stroke: #fff; stroke-linecap: round; stroke-dasharray: 106.8; stroke-dashoffset: 0; transition: stroke-dashoffset 1000ms linear; }
+.u-seconds { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 700; font-feature-settings: "tnum" 1; }
+
+/* ---------- Loading and error ---------- */
+
+/* Fast streams never flash the spinner. */
+body[data-ui="2"] #loading.shown .status { animation: appear 300ms 600ms var(--ease) both; }
+@keyframes appear { from { opacity: 0; } }
+.error-item { margin-top: 1.25rem; font-size: 1.25rem; font-weight: 600; color: var(--text-3); }
+.error-item:empty { display: none; }
+
 /* ---------- Right-to-left (Arabic) ---------- */
 
 [dir="rtl"] .title, [dir="rtl"] .wordmark { letter-spacing: 0; }
 [dir="rtl"] .time.remaining { text-align: left; }
+[dir="rtl"] .t-title { letter-spacing: 0; }
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; }
