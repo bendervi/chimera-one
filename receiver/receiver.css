@@ -311,7 +311,7 @@ body.zapping #ambient { visibility: hidden; }
 #captions {
     position: absolute; left: var(--margin-x); right: var(--margin-x); bottom: 7vh;
     display: flex; flex-direction: column; align-items: center; gap: 0.15em;
-    text-align: center; pointer-events: none; opacity: 0;
+    text-align: center; pointer-events: none; opacity: 0; z-index: 1;
     transition: transform 400ms var(--ease);
 }
 body.video-visible #captions { opacity: 1; }
