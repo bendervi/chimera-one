@@ -31,6 +31,13 @@
   the top or Back closes it; ←/→ and Channel ± ask the phone for the
   previous/next channel — {"type":"zap","direction":±1} to every sender;
   the phone loads it (it has the channel list and the stream route).
+
+  TVs with Cast built in keep their remote's keys and draw their own controls
+  over the receiver instead, sending us PLAY/PAUSE/SEEK/QUEUE_UPDATE. Those
+  controls follow supportedMediaCommands: a live channel offers no seeking
+  (no ±10 s) but previous/next, which zap like the keys above. While a
+  request from the TV itself (a sender ID no phone has) is recent, our own
+  bar and pause glyph step aside so the two don't stack.
 */
 (() => {
     "use strict";
@@ -763,6 +770,54 @@
         const events = cast.framework.events.EventType;
         const messages = cast.framework.messages.MessageType;
         player.setMediaElement(video);
+        const Command = cast.framework.messages.Command;
+
+        /// What the TV's own controls offer for this item (see the header).
+        function applyCommands(itemKind) {
+            let commands = Command.ALL_BASIC_MEDIA;
+            if (itemKind === "live") {
+                commands = Command.PAUSE | Command.STREAM_VOLUME | Command.STREAM_MUTE | Command.EDIT_TRACKS;
+                // Only ui 2 senders answer `zap`.
+                if (ui === 2) commands |= Command.QUEUE_NEXT | Command.QUEUE_PREV;
+            }
+            try { player.setSupportedMediaCommands(commands, true); } catch (_) { /* older CAF */ }
+        }
+
+        let deviceControlsTimer = null;
+
+        /// A request from the TV's own remote/controls, not from a phone.
+        function isFromDevice(request) {
+            const id = request && request.senderId;
+            if (!id) return false;
+            try { return !context.getSenders().some(sender => sender.id === id); } catch (_) { return false; }
+        }
+
+        function noteRequest(type, request) {
+            try {
+                cast.debug.CastDebugLogger.getInstance().info("Chimera", `${type} from ${request && request.senderId}`);
+            } catch (_) { /* logger unavailable */ }
+            if (!isFromDevice(request)) return;
+            body.classList.add("device-controls");
+            clearTimeout(deviceControlsTimer);
+            deviceControlsTimer = setTimeout(() => body.classList.remove("device-controls"), 6000);
+        }
+
+        [messages.PLAY, messages.PAUSE, messages.SEEK].forEach(type => {
+            player.setMessageInterceptor(type, request => {
+                noteRequest(type, request);
+                return request;
+            });
+        });
+
+        // The TV's previous/next on a live channel: the phone changes channel.
+        player.setMessageInterceptor(messages.QUEUE_UPDATE, request => {
+            noteRequest("QUEUE_UPDATE", request);
+            if (kind === "live" && ui === 2 && request.jump) {
+                zap(request.jump > 0 ? 1 : -1);
+                return null;
+            }
+            return request;
+        });
 
         player.setMessageInterceptor(messages.LOAD, request => {
             const media = request.media || {};
@@ -772,6 +827,7 @@
             const wasPlayingLive = kind === "live" && (state === "playing" || state === "paused" || state === "buffering");
             setUI(customData);
             const details = detailsOf(media);
+            applyCommands(details.kind);
             hideUpNext();
             closeGuide(false);
             endScrub(true);
@@ -789,6 +845,7 @@
         });
 
         player.setMessageInterceptor(messages.EDIT_TRACKS_INFO, request => {
+            noteRequest("EDIT_TRACKS_INFO", request);
             if (ui === 2 && request.activeTrackIds) {
                 const ids = request.activeTrackIds.slice();
                 setTimeout(() => announceTracks(player, ids), 0);
@@ -797,6 +854,7 @@
         });
 
         player.addEventListener(events.PLAYER_LOAD_COMPLETE, () => {
+            applyCommands(kind);
             endZap();
             setState(video.paused && kind !== "photo" ? "paused" : "playing");
             showInfo(ui === 2 ? 5000 : 6000);

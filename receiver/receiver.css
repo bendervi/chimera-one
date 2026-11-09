@@ -330,6 +330,11 @@ body[data-ui="2"][data-state="paused"]:not([data-kind="music"]) #dim { opacity: 
 #pause-glyph::after { right: 36%; }
 body[data-state="paused"]:not([data-kind="music"]):not([data-kind="photo"]) #pause-glyph { opacity: 1; transform: none; }
 
+/* The TV's own controls are up (its remote was used — Cast built-in TVs):
+   ours step aside so the two don't stack. */
+body.device-controls #transport, body.device-controls #pause-glyph { opacity: 0 !important; visibility: hidden !important; transition: none !important; }
+body.device-controls #dim { opacity: 0 !important; }
+
 /* ---------- Channel switch: the last frame, dimmed, under the new channel's transport ---------- */
 
 #freeze { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; opacity: 0; transition: opacity 300ms var(--ease); }
