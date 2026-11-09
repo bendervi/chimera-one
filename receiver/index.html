@@ -6,7 +6,7 @@
   no cast-media-player chrome. Layout/logic: receiver.css / receiver.js.
   Local preview without a Cast device:
   index.html?demo=idle|loading|video|live|paused|music|photo|error  (the first UI, for senders without `ui`)
-  index.html?demo=v2-video|v2-live|v2-paused|v2-scrub|v2-subtitles|v2-toast|v2-up-next|v2-zap|v2-loading|v2-error  (ui 2)
+  index.html?demo=v2-video|v2-live|v2-live-paused|v2-guide|v2-paused|v2-scrub|v2-subtitles|v2-toast|v2-up-next|v2-zap|v2-loading|v2-error  (ui 2)
   plus &lang=<code>.
 -->
 <html lang="en">
@@ -101,6 +101,12 @@
                 <span class="t-elapsed"></span>
                 <span class="t-remaining"></span>
             </div>
+        </div>
+        <!-- Live: the TV remote's ↓ opens what's on later; ↑/↓ scroll it. -->
+        <p class="g-hint" aria-hidden="true"><span class="g-chevron"></span><span data-i18n="comingUp"></span></p>
+        <div class="guide">
+            <p class="g-label" data-i18n="comingUp"></p>
+            <div class="g-viewport"><ol class="g-list"></ol></div>
         </div>
     </section>
 

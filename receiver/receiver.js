@@ -24,6 +24,13 @@
   (times in Unix seconds). Messages on the custom channel:
     scrub {seconds} · scrubEnd · subtitleStyle {style} · live {live}
     upNext {title, art, seconds, window, countdown} · upNext {hidden: true} · showInfo
+  live.upcoming: [{ title, start, end }] — the Coming Up list.
+
+  TV remote (live, ui 2), where the TV hands its keys to the receiver
+  (Cast built-in TVs may keep them): ↓ opens Coming Up, ↑/↓ scroll it, ↑ at
+  the top or Back closes it; ←/→ and Channel ± ask the phone for the
+  previous/next channel — {"type":"zap","direction":±1} to every sender;
+  the phone loads it (it has the channel list and the stream route).
 */
 (() => {
     "use strict";
@@ -32,17 +39,17 @@
     const LOCALE_KEY = "chimera.locale";
 
     const STRINGS = {
-        "en":    { ready: "Ready to play", live: "LIVE", loading: "Loading…", errorTitle: "Can't play this", errorBody: "This TV couldn't open the stream.", upNext: "Up Next", subtitlesOn: "Subtitles: %@", subtitlesOff: "Subtitles Off", audio: "Audio: %@", next: "Next: %@", track: "Track %@" },
-        "ar":    { ready: "جاهز للتشغيل", live: "مباشر", loading: "جارٍ التحميل…", errorTitle: "تعذّر التشغيل", errorBody: "تعذّر على هذا التلفزيون فتح البث.", upNext: "التالي", subtitlesOn: "الترجمة: %@", subtitlesOff: "الترجمة متوقفة", audio: "الصوت: %@", next: "التالي: %@", track: "المسار %@" },
-        "de":    { ready: "Bereit zur Wiedergabe", live: "LIVE", loading: "Laden …", errorTitle: "Wiedergabe nicht möglich", errorBody: "Dieser Fernseher konnte den Stream nicht öffnen.", upNext: "Als Nächstes", subtitlesOn: "Untertitel: %@", subtitlesOff: "Untertitel aus", audio: "Audio: %@", next: "Danach: %@", track: "Spur %@" },
-        "es":    { ready: "Listo para reproducir", live: "EN VIVO", loading: "Cargando…", errorTitle: "No se puede reproducir", errorBody: "Este televisor no pudo abrir la transmisión.", upNext: "A continuación", subtitlesOn: "Subtítulos: %@", subtitlesOff: "Subtítulos desactivados", audio: "Audio: %@", next: "Después: %@", track: "Pista %@" },
-        "fr":    { ready: "Prêt pour la lecture", live: "DIRECT", loading: "Chargement…", errorTitle: "Lecture impossible", errorBody: "Ce téléviseur n'a pas pu ouvrir le flux.", upNext: "À suivre", subtitlesOn: "Sous-titres : %@", subtitlesOff: "Sous-titres désactivés", audio: "Audio : %@", next: "Ensuite : %@", track: "Piste %@" },
-        "hr":    { ready: "Spremno za reprodukciju", live: "UŽIVO", loading: "Učitavanje…", errorTitle: "Reprodukcija nije moguća", errorBody: "Ovaj televizor nije mogao otvoriti stream.", upNext: "Sljedeće", subtitlesOn: "Titlovi: %@", subtitlesOff: "Titlovi isključeni", audio: "Zvuk: %@", next: "Zatim: %@", track: "Zapis %@" },
-        "it":    { ready: "Pronto per la riproduzione", live: "LIVE", loading: "Caricamento…", errorTitle: "Impossibile riprodurre", errorBody: "Questo televisore non è riuscito ad aprire lo stream.", upNext: "Prossimo", subtitlesOn: "Sottotitoli: %@", subtitlesOff: "Sottotitoli disattivati", audio: "Audio: %@", next: "Dopo: %@", track: "Traccia %@" },
-        "nl":    { ready: "Klaar om af te spelen", live: "LIVE", loading: "Laden…", errorTitle: "Kan niet afspelen", errorBody: "Deze tv kon de stream niet openen.", upNext: "Hierna", subtitlesOn: "Ondertitels: %@", subtitlesOff: "Ondertitels uit", audio: "Audio: %@", next: "Hierna: %@", track: "Spoor %@" },
-        "pl":    { ready: "Gotowe do odtwarzania", live: "NA ŻYWO", loading: "Wczytywanie…", errorTitle: "Nie można odtworzyć", errorBody: "Ten telewizor nie mógł otworzyć strumienia.", upNext: "Następny", subtitlesOn: "Napisy: %@", subtitlesOff: "Napisy wyłączone", audio: "Dźwięk: %@", next: "Następnie: %@", track: "Ścieżka %@" },
-        "pt-BR": { ready: "Pronto para reproduzir", live: "AO VIVO", loading: "Carregando…", errorTitle: "Não é possível reproduzir", errorBody: "Esta TV não conseguiu abrir a transmissão.", upNext: "A seguir", subtitlesOn: "Legendas: %@", subtitlesOff: "Legendas desativadas", audio: "Áudio: %@", next: "Depois: %@", track: "Faixa %@" },
-        "tr":    { ready: "Oynatmaya hazır", live: "CANLI", loading: "Yükleniyor…", errorTitle: "Oynatılamıyor", errorBody: "Bu TV yayını açamadı.", upNext: "Sıradaki", subtitlesOn: "Altyazı: %@", subtitlesOff: "Altyazı kapalı", audio: "Ses: %@", next: "Sonra: %@", track: "Parça %@" }
+        "en":    { ready: "Ready to play", live: "LIVE", loading: "Loading…", errorTitle: "Can't play this", errorBody: "This TV couldn't open the stream.", upNext: "Up Next", subtitlesOn: "Subtitles: %@", subtitlesOff: "Subtitles Off", audio: "Audio: %@", next: "Next: %@", track: "Track %@", comingUp: "Coming Up" },
+        "ar":    { ready: "جاهز للتشغيل", live: "مباشر", loading: "جارٍ التحميل…", errorTitle: "تعذّر التشغيل", errorBody: "تعذّر على هذا التلفزيون فتح البث.", upNext: "التالي", subtitlesOn: "الترجمة: %@", subtitlesOff: "الترجمة متوقفة", audio: "الصوت: %@", next: "التالي: %@", track: "المسار %@", comingUp: "يُعرض لاحقًا" },
+        "de":    { ready: "Bereit zur Wiedergabe", live: "LIVE", loading: "Laden …", errorTitle: "Wiedergabe nicht möglich", errorBody: "Dieser Fernseher konnte den Stream nicht öffnen.", upNext: "Als Nächstes", subtitlesOn: "Untertitel: %@", subtitlesOff: "Untertitel aus", audio: "Audio: %@", next: "Danach: %@", track: "Spur %@", comingUp: "Demnächst" },
+        "es":    { ready: "Listo para reproducir", live: "EN VIVO", loading: "Cargando…", errorTitle: "No se puede reproducir", errorBody: "Este televisor no pudo abrir la transmisión.", upNext: "A continuación", subtitlesOn: "Subtítulos: %@", subtitlesOff: "Subtítulos desactivados", audio: "Audio: %@", next: "Después: %@", track: "Pista %@", comingUp: "Próximamente" },
+        "fr":    { ready: "Prêt pour la lecture", live: "DIRECT", loading: "Chargement…", errorTitle: "Lecture impossible", errorBody: "Ce téléviseur n'a pas pu ouvrir le flux.", upNext: "À suivre", subtitlesOn: "Sous-titres : %@", subtitlesOff: "Sous-titres désactivés", audio: "Audio : %@", next: "Ensuite : %@", track: "Piste %@", comingUp: "Plus tard" },
+        "hr":    { ready: "Spremno za reprodukciju", live: "UŽIVO", loading: "Učitavanje…", errorTitle: "Reprodukcija nije moguća", errorBody: "Ovaj televizor nije mogao otvoriti stream.", upNext: "Sljedeće", subtitlesOn: "Titlovi: %@", subtitlesOff: "Titlovi isključeni", audio: "Zvuk: %@", next: "Zatim: %@", track: "Zapis %@", comingUp: "Uskoro" },
+        "it":    { ready: "Pronto per la riproduzione", live: "LIVE", loading: "Caricamento…", errorTitle: "Impossibile riprodurre", errorBody: "Questo televisore non è riuscito ad aprire lo stream.", upNext: "Prossimo", subtitlesOn: "Sottotitoli: %@", subtitlesOff: "Sottotitoli disattivati", audio: "Audio: %@", next: "Dopo: %@", track: "Traccia %@", comingUp: "Più tardi" },
+        "nl":    { ready: "Klaar om af te spelen", live: "LIVE", loading: "Laden…", errorTitle: "Kan niet afspelen", errorBody: "Deze tv kon de stream niet openen.", upNext: "Hierna", subtitlesOn: "Ondertitels: %@", subtitlesOff: "Ondertitels uit", audio: "Audio: %@", next: "Hierna: %@", track: "Spoor %@", comingUp: "Straks" },
+        "pl":    { ready: "Gotowe do odtwarzania", live: "NA ŻYWO", loading: "Wczytywanie…", errorTitle: "Nie można odtworzyć", errorBody: "Ten telewizor nie mógł otworzyć strumienia.", upNext: "Następny", subtitlesOn: "Napisy: %@", subtitlesOff: "Napisy wyłączone", audio: "Dźwięk: %@", next: "Następnie: %@", track: "Ścieżka %@", comingUp: "Później" },
+        "pt-BR": { ready: "Pronto para reproduzir", live: "AO VIVO", loading: "Carregando…", errorTitle: "Não é possível reproduzir", errorBody: "Esta TV não conseguiu abrir a transmissão.", upNext: "A seguir", subtitlesOn: "Legendas: %@", subtitlesOff: "Legendas desativadas", audio: "Áudio: %@", next: "Depois: %@", track: "Faixa %@", comingUp: "Mais tarde" },
+        "tr":    { ready: "Oynatmaya hazır", live: "CANLI", loading: "Yükleniyor…", errorTitle: "Oynatılamıyor", errorBody: "Bu TV yayını açamadı.", upNext: "Sıradaki", subtitlesOn: "Altyazı: %@", subtitlesOff: "Altyazı kapalı", audio: "Ses: %@", next: "Sonra: %@", track: "Parça %@", comingUp: "Daha sonra" }
     };
 
     const $ = selector => document.querySelector(selector);
@@ -233,11 +240,12 @@
             liftCues();
         }
         clearTimeout(infoTimer);
-        if (milliseconds) infoTimer = setTimeout(() => { if (state !== "paused" && !scrubbing) hideInfo(); }, milliseconds);
+        if (milliseconds) infoTimer = setTimeout(() => { if (state !== "paused" && !scrubbing && !guideOpen) hideInfo(); }, milliseconds);
     }
 
     function hideInfo() {
         clearTimeout(infoTimer);
+        closeGuide(false);
         $("#infobar").classList.remove("shown");
         $("#transport").classList.remove("shown");
         body.classList.remove("transport-shown");
@@ -311,6 +319,7 @@
         $(".t-overview").textContent = overview;
         setArtwork($("#t-logo"), kind === "live" ? (live.logo || current.art) : "");
         renderBar();
+        renderGuide();
     }
 
     function renderBar() {
@@ -358,6 +367,158 @@
     setInterval(() => {
         if (ui === 2 && kind === "live" && $("#transport").classList.contains("shown")) renderBar();
     }, 15000);
+
+    // ---------- Coming Up (live, ui 2) ----------
+
+    let guideOpen = false;
+    let guideIndex = 0;
+    let guideTimer = null;
+
+    /// What's on later, from the phone's guide; programmes that ended drop off.
+    function upcoming() {
+        const live = extra.live;
+        const list = (live && Array.isArray(live.upcoming)) ? live.upcoming : [];
+        const now = Date.now() / 1000;
+        return list.filter(item => item && item.title && item.end > now);
+    }
+
+    function renderGuide() {
+        const items = ui === 2 && kind === "live" ? upcoming() : [];
+        body.classList.toggle("has-guide", items.length > 0);
+        if (!items.length) closeGuide(false);
+        const list = $(".g-list");
+        list.textContent = "";
+        items.forEach(item => {
+            const row = document.createElement("li");
+            row.className = "g-row";
+            const time = document.createElement("span");
+            time.className = "g-time";
+            time.textContent = formatClock(item.start);
+            const title = document.createElement("span");
+            title.className = "g-title";
+            title.textContent = item.title;
+            row.append(time, title);
+            list.appendChild(row);
+        });
+        guideIndex = Math.min(guideIndex, Math.max(0, items.length - 1));
+        selectGuideRow();
+    }
+
+    function selectGuideRow() {
+        const rows = $$(".g-row");
+        rows.forEach((row, index) => row.classList.toggle("selected", guideOpen && index === guideIndex));
+        const selected = rows[guideIndex];
+        const list = $(".g-list");
+        if (!selected) { list.style.transform = "none"; return; }
+        // Once the list scrolls, the selected row stays second from the top.
+        const viewport = $(".g-viewport").clientHeight;
+        const maxShift = Math.max(0, list.scrollHeight - viewport);
+        const shift = Math.min(maxShift, Math.max(0, selected.offsetTop - selected.offsetHeight));
+        list.style.transform = `translateY(${-shift}px)`;
+    }
+
+    function openGuide() {
+        if (!upcoming().length) return false;
+        guideOpen = true;
+        guideIndex = 0;
+        body.classList.add("guide-open");
+        showInfo(0);
+        renderGuide();
+        liftCues();
+        keepGuide();
+        return true;
+    }
+
+    function closeGuide(showsBar) {
+        clearTimeout(guideTimer);
+        if (!guideOpen) return;
+        guideOpen = false;
+        body.classList.remove("guide-open");
+        selectGuideRow();
+        liftCues();
+        if (showsBar) showInfo(5000);
+    }
+
+    /// Left alone, the list closes like the bar does.
+    function keepGuide() {
+        clearTimeout(guideTimer);
+        guideTimer = setTimeout(() => {
+            closeGuide(false);
+            if (state !== "paused") hideInfo();
+        }, 15000);
+    }
+
+    function moveGuide(step) {
+        const count = $$(".g-row").length;
+        guideIndex = Math.min(Math.max(guideIndex + step, 0), Math.max(0, count - 1));
+        selectGuideRow();
+        keepGuide();
+    }
+
+    // ---------- TV remote (live, ui 2) ----------
+
+    let castContext = null;
+    let lastZap = 0;
+
+    const KEYS = {
+        up: ["ArrowUp", "Up", 38],
+        down: ["ArrowDown", "Down", 40],
+        left: ["ArrowLeft", "Left", 37],
+        right: ["ArrowRight", "Right", 39],
+        channelUp: ["ChannelUp", "PageUp", 427, 33],
+        channelDown: ["ChannelDown", "PageDown", 428, 34],
+        back: ["Escape", "GoBack", "BrowserBack", "Back", 27, 10009, 461],
+        select: ["Enter", "Select", 13]
+    };
+
+    function isKey(event, name) {
+        return KEYS[name].includes(event.key) || KEYS[name].includes(event.keyCode);
+    }
+
+    /// Asks the phone for the next (+1) or previous (−1) channel.
+    function zap(direction) {
+        const now = Date.now();
+        if (now - lastZap < 400) return;
+        lastZap = now;
+        closeGuide(false);
+        showInfo(4000);
+        if (!castContext) return;
+        try {
+            castContext.sendCustomMessage(NAMESPACE, undefined, { type: "zap", direction: direction });
+        } catch (_) { /* no sender connected */ }
+    }
+
+    function handleKey(event) {
+        const isMedia = state === "playing" || state === "paused" || state === "buffering" || (state === "loading" && zapping);
+        if (ui !== 2 || kind !== "live" || !isMedia) return;
+        // The keys reach us: the bar can point at Coming Up.
+        body.classList.add("keys-seen");
+        let handled = true;
+        if (isKey(event, "channelUp")) zap(1);
+        else if (isKey(event, "channelDown")) zap(-1);
+        else if (guideOpen) {
+            if (isKey(event, "down")) moveGuide(1);
+            else if (isKey(event, "up")) { if (guideIndex > 0) moveGuide(-1); else closeGuide(true); }
+            else if (isKey(event, "back")) closeGuide(true);
+            else if (isKey(event, "left")) zap(-1);
+            else if (isKey(event, "right")) zap(1);
+            else if (isKey(event, "select")) keepGuide();
+            else handled = false;
+        } else if (isKey(event, "down")) {
+            if (!openGuide()) showInfo(5000);
+        } else if (isKey(event, "left")) zap(-1);
+        else if (isKey(event, "right")) zap(1);
+        else if (isKey(event, "up") || isKey(event, "select")) showInfo(5000);
+        else handled = false;
+        if (handled) event.preventDefault();
+    }
+
+    window.addEventListener("keydown", handleKey);
+
+    // Programmes that end drop off the list.
+    setInterval(() => {
+        if (ui === 2 && kind === "live") renderGuide();
+    }, 60000);
 
     function beginScrub(seconds) {
         if (ui !== 2 || kind !== "video") return;
@@ -597,6 +758,7 @@
 
     function startReceiver() {
         const context = cast.framework.CastReceiverContext.getInstance();
+        castContext = context;
         const player = context.getPlayerManager();
         const events = cast.framework.events.EventType;
         const messages = cast.framework.messages.MessageType;
@@ -611,6 +773,7 @@
             setUI(customData);
             const details = detailsOf(media);
             hideUpNext();
+            closeGuide(false);
             endScrub(true);
             scrubTarget = null;
             tracksKnown = false;
@@ -745,7 +908,7 @@
 
     function runDemoV2(name, samples, frame, videoURL) {
         const now = Math.floor(Date.now() / 1000);
-        const isLive = name === "live" || name === "zap";
+        const isLive = name === "live" || name === "zap" || name === "live-paused" || name === "guide";
         setUI({
             ui: 2,
             details: isLive ? null : {
@@ -756,7 +919,11 @@
             live: isLive ? {
                 channel: "Channel One HD", logo: samples.live.art,
                 programme: { title: "Evening News", start: now - 1500, end: now + 1200 },
-                next: { title: "Weather and Sport", start: now + 1200 }
+                next: { title: "Weather and Sport", start: now + 1200 },
+                upcoming: [
+                    ["Weather and Sport", 1200, 1800], ["The Quiz Hour", 1800, 5400], ["Northern Shores", 5400, 8400],
+                    ["Late News", 8400, 9600], ["Film: The Long Way North", 9600, 16200], ["Night Music", 16200, 19800]
+                ].map(([title, start, end]) => ({ title: title, start: now + start, end: now + end }))
             } : null,
             subtitleStyle: name === "subtitles" ? { scale: 1, weight: 600, color: "#FFFFFF", edge: "dropShadow" } : null
         });
@@ -797,12 +964,26 @@
         }
         if (name === "subtitles") return;
         showInfo(0);
+        if (name === "guide") {
+            body.classList.add("keys-seen");
+            openGuide();
+            const steps = Number(new URLSearchParams(location.search).get("down")) || 0;
+            for (let step = 0; step < steps; step++) moveGuide(1);
+            return;
+        }
+        if (name === "live-paused") setTimeout(() => { setState("paused"); showInfo(0); }, Number(new URLSearchParams(location.search).get("after")) || 1500);
     }
 
     const params = new URLSearchParams(location.search);
     applyLanguage(storedLanguage() || navigator.language, false);
     if (params.has("demo")) {
         runDemo(params.get("demo"), params.get("lang"), params.get("video"));
+        // &keys=ArrowDown,ArrowDown,ArrowUp — presses on the TV remote.
+        if (params.has("keys")) {
+            params.get("keys").split(",").forEach((key, index) => setTimeout(() => {
+                window.dispatchEvent(new KeyboardEvent("keydown", { key: key, bubbles: true, cancelable: true }));
+            }, 300 * (index + 1)));
+        }
     } else {
         setState("idle");
         startReceiver();

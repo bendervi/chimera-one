@@ -286,6 +286,37 @@ body.scrubbing .t-elapsed { color: var(--text); }
 body[data-state="paused"] .bar-head, body.scrubbing .bar-head { transform: translateX(var(--head-x, 0)) scale(1); }
 .bar-head { transform: translateX(var(--head-x, 0)) scale(0); }
 
+/* ---------- Coming Up (live): opened with the TV remote's ↓ ---------- */
+
+body.guide-open #transport {
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.66) 55%, rgba(0,0,0,0) 100%);
+}
+.g-hint {
+    display: none; align-items: center; gap: 0.6rem; margin-top: 0.9rem;
+    font-size: 1.0625rem; font-weight: 600; color: var(--text-3);
+}
+body.keys-seen.has-guide[data-kind="live"]:not(.guide-open) .g-hint { display: flex; }
+.g-chevron {
+    width: 0.6rem; height: 0.6rem; margin-top: -0.3rem;
+    border-right: 0.16rem solid currentColor; border-bottom: 0.16rem solid currentColor; transform: rotate(45deg);
+}
+.guide { display: none; margin-top: 1.75rem; }
+body.guide-open .guide { display: block; animation: guide-in 400ms var(--ease) both; }
+@keyframes guide-in { from { opacity: 0; transform: translateY(1rem); } }
+.g-label { font-size: 1.0625rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-2); margin: 0 0 0.6rem 1rem; }
+[dir="rtl"] .g-label { margin: 0 1rem 0.6rem 0; letter-spacing: 0; }
+/* Four rows show; the list slides to keep the selected one in view. */
+.g-viewport { height: 15.2rem; overflow: hidden; }
+.g-list { list-style: none; margin: 0; padding: 0; transition: transform 300ms var(--ease); }
+.g-row {
+    display: flex; align-items: baseline; gap: 1.75rem; height: 3.8rem; padding: 0 1rem;
+    border-radius: 0.9rem; transition: background-color 200ms var(--ease);
+}
+.g-row.selected { background: rgba(255,255,255,0.16); }
+.g-time { flex: none; min-width: 6.5rem; padding-top: 1.05rem; font-size: 1.1875rem; font-weight: 600; color: var(--text-2); font-feature-settings: "tnum" 1; }
+.g-title { min-width: 0; padding-top: 0.95rem; font-size: 1.375rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-2); }
+.g-row.selected .g-time, .g-row.selected .g-title { color: var(--text); }
+
 /* Paused: the picture dims, a pause glyph settles in the middle. */
 #dim { position: absolute; inset: 0; background: #000; opacity: 0; transition: opacity 500ms var(--ease); pointer-events: none; }
 body[data-ui="2"][data-state="paused"]:not([data-kind="music"]) #dim { opacity: 0.42; }
