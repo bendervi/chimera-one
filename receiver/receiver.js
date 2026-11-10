@@ -38,6 +38,11 @@
   (no ±10 s) but previous/next, which zap like the keys above. While a
   request from the TV itself (a sender ID no phone has) is recent, our own
   bar and pause glyph step aside so the two don't stack.
+
+  Experiment (customData.experiment = "bareControls", sent only by the
+  owner's debug builds): a live channel offers the TV no commands at all, to
+  see whether the TV then skips its own controls and hands its keys to us.
+  A probe in the corner lists every key and request that arrives.
 */
 (() => {
     "use strict";
@@ -103,6 +108,7 @@
     let ui = 1;
     /// customData v2 of the current item: { details, live }.
     let extra = {};
+    let experiment = null;
     let current = { title: "", subtitle: "" };
 
     function kindOf(media) {
@@ -177,6 +183,8 @@
 
     function setUI(customData) {
         ui = customData.ui >= 2 ? 2 : 1;
+        experiment = typeof customData.experiment === "string" ? customData.experiment : null;
+        body.classList.toggle("probe", experiment !== null);
         body.dataset.ui = String(ui);
         extra = {
             details: customData.details || null,
@@ -495,7 +503,22 @@
         } catch (_) { /* no sender connected */ }
     }
 
+    /// The experiment's on-screen record of what reaches the receiver.
+    function probe(line) {
+        if (experiment === null) return;
+        let box = document.getElementById("probe");
+        if (!box) {
+            box = document.createElement("pre");
+            box.id = "probe";
+            body.appendChild(box);
+        }
+        const stamp = new Date().toLocaleTimeString([], { hour12: false });
+        const lines = (stamp + "  " + line + "\n" + box.textContent).split("\n").filter(Boolean).slice(0, 8);
+        box.textContent = lines.join("\n");
+    }
+
     function handleKey(event) {
+        probe(`key ${event.key} (${event.keyCode})`);
         const isMedia = state === "playing" || state === "paused" || state === "buffering" || (state === "loading" && zapping);
         if (ui !== 2 || kind !== "live" || !isMedia) return;
         // The keys reach us: the bar can point at Coming Up.
@@ -775,7 +798,9 @@
         /// What the TV's own controls offer for this item (see the header).
         function applyCommands(itemKind) {
             let commands = Command.ALL_BASIC_MEDIA;
-            if (itemKind === "live") {
+            if (itemKind === "live" && experiment === "bareControls") {
+                commands = 0;
+            } else if (itemKind === "live") {
                 commands = Command.PAUSE | Command.STREAM_VOLUME | Command.STREAM_MUTE | Command.EDIT_TRACKS;
                 // Only ui 2 senders answer `zap`.
                 if (ui === 2) commands |= Command.QUEUE_NEXT | Command.QUEUE_PREV;
@@ -796,7 +821,9 @@
             try {
                 cast.debug.CastDebugLogger.getInstance().info("Chimera", `${type} from ${request && request.senderId}`);
             } catch (_) { /* logger unavailable */ }
-            if (!isFromDevice(request)) return;
+            probe(`${type} from ${isFromDevice(request) ? "TV" : "phone"}${request && request.jump ? " jump " + request.jump : ""}`);
+            // The experiment keeps our bar up, to see whether it has the keys.
+            if (!isFromDevice(request) || experiment !== null) return;
             body.classList.add("device-controls");
             clearTimeout(deviceControlsTimer);
             deviceControlsTimer = setTimeout(() => body.classList.remove("device-controls"), 6000);
@@ -969,6 +996,7 @@
         const isLive = name === "live" || name === "zap" || name === "live-paused" || name === "guide";
         setUI({
             ui: 2,
+            experiment: new URLSearchParams(location.search).get("experiment") || undefined,
             details: isLive ? null : {
                 eyebrow: "Northern Shores · S1 E3",
                 line: "2024 · Drama · 52 min",

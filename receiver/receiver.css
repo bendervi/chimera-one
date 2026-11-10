@@ -408,3 +408,8 @@ body[data-ui="2"] #loading.shown .status { animation: appear 300ms 600ms var(--e
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition-duration: 0ms !important; }
 }
+
+/* Experiment probe (debug builds only): what reaches the receiver. */
+#probe { position: fixed; top: 48px; left: 48px; z-index: 100; margin: 0; padding: 12px 16px; max-width: 640px;
+    font: 500 20px/1.4 ui-monospace, Menlo, monospace; color: #fff; background: rgba(0, 0, 0, 0.72); border-radius: 12px;
+    white-space: pre; pointer-events: none; }
