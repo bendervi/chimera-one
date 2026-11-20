@@ -40,7 +40,7 @@ const ogImage = new URL(`/og/${locale.path || "en"}.jpg`, site).href;
         }
         {localized && <link rel="alternate" hreflang="x-default" href={new URL(page ? `/${page}` : "/", site).href} />}
         <meta name="apple-itunes-app" content={`app-id=${appStoreID}`} />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="light" />
         <meta name="theme-color" content="#0a5cff" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />

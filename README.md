@@ -19,7 +19,7 @@ npm run build     # dist/, then checks the receiver is byte-identical
 - `public/_redirects` — 301s from the old `.html` addresses; `public/_headers` —
   caching (the receiver is `no-cache`, so fixes reach TVs on the next cast).
 - `legacy-github-pages/` + `.github/workflows/legacy-github-pages.yml` — keeps the
-  old `bendervi.github.io/chimera-one/` address alive (receiver copy + redirects).
+  old `bendervi.github.io/chimera-one/` address alive (redirects to getchimera.app).
   Shipped app builds link there. Keep it.
 - `public/receiver/` — **the live Cast receiver (App ID 269B640F)**. Every push to
   `main` changes what plays on every user's TV. Try changes at `/receiver-dev/`

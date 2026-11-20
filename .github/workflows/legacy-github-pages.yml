@@ -1,5 +1,6 @@
-# Publishes the OLD address, bendervi.github.io/chimera-one/: a copy of the Cast
-# receiver plus redirects to getchimera.app (see legacy-github-pages/README.md).
+# Publishes the OLD address, bendervi.github.io/chimera-one/: every page,
+# including /receiver/, redirects to the same path on getchimera.app (see
+# legacy-github-pages/README.md).
 # The site itself is built and hosted by Cloudflare Pages.
 # Repo Settings › Pages › Source must be "GitHub Actions".
 name: Legacy GitHub Pages
@@ -26,8 +27,6 @@ jobs:
       - name: Assemble
         run: |
           mkdir -p out
-          cp -R public/receiver out/receiver
-          diff -r public/receiver out/receiver
           for page in index privacy privacy-tv support 404; do
             cp legacy-github-pages/redirect.html "out/$page.html"
           done
