@@ -19,10 +19,10 @@ export function storeURL(campaign: string, mac = false): string {
 }
 
 /**
- * Support address. Switch to support@getchimera.app once the Loopia alias
- * exists (forwarding is receive-only — test it before changing this).
+ * Support address — Cloudflare Email Routing forwards it to the owner's inbox
+ * (receive-only; replies go out from the owner's own address).
  */
-export const supportEmail = "bnj.dervisevic@gmail.com";
+export const supportEmail = "support@getchimera.app";
 
 export const termsURL = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/";
 
