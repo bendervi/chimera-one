@@ -4,7 +4,7 @@ const pl: Strings = {
     meta: {
         title: "Chimera — odtwarzacz IPTV i multimediów na iPhone’a, iPada, Maca i Apple TV",
         description:
-            "Telewizja na żywo, filmy, seriale i muzyka z Twoich playlist IPTV, Plex, Jellyfin i Emby, w jednym odtwarzaczu na iPhone’a, iPada, Maca i Apple TV.",
+            "Telewizja na żywo, filmy, seriale i muzyka z Twoich playlist IPTV, Plex, Jellyfin i Emby — w jednym odtwarzaczu na iPhone’a, iPada, Maca i Apple TV.",
     },
     nav: {
         features: "Funkcje",
@@ -21,14 +21,14 @@ const pl: Strings = {
     },
     hero: {
         eyebrow: "Na iPhone’a, iPada, Maca i Apple TV",
-        title: "Wszystkie Twoje media\nw jednej aplikacji.",
+        title: "Wszystkie Twoje media.\nJeden piękny odtwarzacz.",
         subtitle:
-            "Telewizja na żywo, filmy, seriale, muzyka, zdjęcia i książki z Twoich playlist IPTV i Twojego serwera Plex, Jellyfin, Emby, Navidrome lub Immich. Na iPhone’a, iPada, Maca i Apple TV.",
-        note: "Bezpłatne pobieranie. Chimera nie zawiera treści; dodajesz własne źródła.",
+            "Telewizja na żywo, filmy, seriale, muzyka, zdjęcia i książki z Twoich playlist IPTV i Twojego serwera Plex, Jellyfin, Emby, Navidrome lub Immich — razem w jednej aplikacji stworzonej dla urządzeń Apple.",
+        note: "Bezpłatne pobieranie. Chimera nie zawiera treści — korzystasz z własnych źródeł.",
     },
     devices: {
-        title: "Zacznij na jednym ekranie. Skończ na innym.",
-        body: "Ulubione, postęp oglądania i Twoje źródła synchronizują się przez iCloud.",
+        title: "Jedna aplikacja na każdym ekranie Apple.",
+        body: "Ulubione, postęp oglądania i Twoje źródła synchronizują się przez iCloud, więc to, co zaczniesz na jednym urządzeniu, czeka na następnym.",
         iphone: "iPhone",
         ipad: "iPad",
         mac: "Mac",
@@ -36,7 +36,7 @@ const pl: Strings = {
     },
     live: {
         eyebrow: "TV na żywo",
-        title: "Telewizja na żywo z prawdziwym przewodnikiem.",
+        title: "Skakanie po kanałach bez wysiłku.",
         body: "Przeglądaj kanały według kategorii, sprawdzaj, co leci teraz i później, i przełączaj kanał jednym stuknięciem.",
         points: [
             "Pełny przewodnik TV z tym, co leci teraz i później",
@@ -47,8 +47,8 @@ const pl: Strings = {
     },
     library: {
         eyebrow: "Filmy i seriale",
-        title: "Wraca tam, gdzie skończyłeś.",
-        body: "Strony z okładkami i obsadą, wszystkie sezony i odcinki oraz Oglądaj dalej na wszystkich urządzeniach.",
+        title: "Twoja biblioteka wreszcie u siebie.",
+        body: "Szczegółowe strony, sezony i odcinki oraz Oglądaj dalej, które pamięta dokładnie, gdzie skończyłeś.",
         points: [
             "Okładki, obsada i szczegóły każdego tytułu",
             "Oglądaj dalej i historia",
@@ -68,9 +68,9 @@ const pl: Strings = {
         ],
     },
     selfhost: {
-        eyebrow: "Własny serwer",
-        title: "Stworzona dla Twojego serwera.",
-        body: "Dodaj serwery, które już masz. Chimera łączy się z nimi bezpośrednio, bez konta i bez pośredników, i pokazuje wszystko jako jedną bibliotekę na każdym urządzeniu Apple.",
+        eyebrow: "Dla właścicieli własnych serwerów",
+        title: "Twój serwer zasługuje na piękną aplikację.",
+        body: "Połącz Chimerę z serwerami, które już masz. Łączy się z nimi bezpośrednio — bez konta, bez pośredników, bez chmury po drodze — i zamienia je w jedną natywną bibliotekę na każdym urządzeniu Apple.",
         servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
         video: {
             servers: "Plex · Jellyfin · Emby",
@@ -81,13 +81,13 @@ const pl: Strings = {
         music: {
             servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
             title: "Muzyka",
-            body: "Albumy, wykonawcy, playlisty i teksty, z Teraz odtwarzane na ekranie blokady.",
+            body: "Aplikacja muzyczna godna Twojej kolekcji: albumy, wykonawcy, playlisty i teksty, z Teraz odtwarzane na ekranie blokady.",
             points: ["Pobieraj oryginalne pliki do słuchania offline", "Playlisty i ulubione", "Tekst odtwarzanego utworu"],
         },
         photos: {
             servers: "Immich",
             title: "Zdjęcia",
-            body: "Twoja biblioteka Immich według roku, miesiąca lub albumu, na pełnym ekranie na iPhonie, iPadzie, Macu i Apple TV.",
+            body: "Twoja biblioteka Immich według roku, miesiąca lub albumu, w szybkiej pełnoekranowej galerii na iPhonie, iPadzie, Macu i Apple TV.",
             points: ["Lata, miesiące i albumy", "Widok pełnoekranowy", "Zapisuj zdjęcia na urządzeniu"],
         },
         books: {
@@ -97,7 +97,7 @@ const pl: Strings = {
             points: ["Zapamiętane miejsce lektury", "Pobieraj książki do czytania offline", "Darmowa klasyka z Project Gutenberg"],
         },
         direct: [
-            { title: "Prosto do Twojego serwera", body: "Chimera nie ma własnego serwera, więc nic przez niego nie przechodzi." },
+            { title: "Prosto do Twojego serwera", body: "Nic nie przechodzi przez serwer Chimery — takiego nie ma." },
             { title: "Wszystkie serwery, jedna aplikacja", body: "Dodaj kilka serwerów, nadaj każdemu nazwę i kolor i przełączaj jednym stuknięciem." },
             { title: "Jedna biblioteka", body: "Z Chimera Pro muzyka i zdjęcia ze wszystkich serwerów są w jednym miejscu." },
             { title: "Hasła zostają na miejscu", body: "Dane logowania do serwerów są w pęku kluczy urządzenia." },
@@ -106,7 +106,7 @@ const pl: Strings = {
     sources: {
         eyebrow: "Twoje źródła",
         title: "Korzystaj z tego, co już masz.",
-        body: "Chimera to odtwarzacz. Nie zawiera kanałów, filmów ani muzyki. Połącz usługi, z których korzystasz, i nadaj każdemu źródłu nazwę i kolor.",
+        body: "Chimera to tylko odtwarzacz — nie zawiera kanałów, filmów ani muzyki. Połącz usługi, z których korzystasz, i nadaj każdemu źródłu nazwę i kolor.",
         list: [
             "Xtream Codes",
             "Playlisty M3U",
@@ -135,11 +135,11 @@ const pl: Strings = {
     },
     privacy: {
         eyebrow: "Prywatność",
-        title: "Bez konta. Bez śledzenia.",
+        title: "Prywatność od podstaw.",
         points: [
-            { title: "Bez rejestracji", body: "Otwórz aplikację i dodaj źródło." },
-            { title: "Nic nie jest śledzone", body: "Chimera Cię nie śledzi, a deweloper nigdy nie otrzymuje Twoich danych." },
-            { title: "Hasła zostają na urządzeniu", body: "Są w pęku kluczy i nigdy nie są synchronizowane." },
+            { title: "Bez konta", body: "Otwórz aplikację i dodaj źródło. To wszystko." },
+            { title: "Bez śledzenia", body: "Chimera Cię nie śledzi, a deweloper nigdy nie otrzymuje Twoich danych." },
+            { title: "Pęk kluczy", body: "Hasła zostają w pęku kluczy urządzenia i nigdy nie są synchronizowane." },
         ],
         link: "Przeczytaj politykę prywatności (po angielsku)",
     },
@@ -174,8 +174,8 @@ const pl: Strings = {
         more: "Więcej odpowiedzi na stronie pomocy (po angielsku)",
     },
     cta: {
-        title: "Pobierz Chimerę.",
-        body: "Bezpłatnie na iPhone’a, iPada, Maca i Apple TV.",
+        title: "Twoje media czekają.",
+        body: "Pobierz Chimerę i dodaj pierwsze źródło.",
     },
     footer: {
         support: "Pomoc",

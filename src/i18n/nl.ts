@@ -4,7 +4,7 @@ const nl: Strings = {
     meta: {
         title: "Chimera — IPTV- en mediaspeler voor iPhone, iPad, Mac en Apple TV",
         description:
-            "Live-tv, films, series en muziek uit je IPTV-playlists, Plex, Jellyfin en Emby, in één speler voor iPhone, iPad, Mac en Apple TV.",
+            "Live-tv, films, series en muziek uit je IPTV-playlists, Plex, Jellyfin en Emby — in één speler voor iPhone, iPad, Mac en Apple TV.",
     },
     nav: {
         features: "Functies",
@@ -21,14 +21,14 @@ const nl: Strings = {
     },
     hero: {
         eyebrow: "Voor iPhone, iPad, Mac en Apple TV",
-        title: "Al je media,\nin één app.",
+        title: "Al je media.\nEén prachtige speler.",
         subtitle:
-            "Live-tv, films, series, muziek, foto’s en boeken uit je IPTV-playlists en je eigen Plex-, Jellyfin-, Emby-, Navidrome- of Immich-server. Gemaakt voor iPhone, iPad, Mac en Apple TV.",
-        note: "Gratis te downloaden. Chimera bevat geen content; je voegt je eigen bronnen toe.",
+            "Live-tv, films, series, muziek, foto’s en boeken uit je IPTV-playlists en je eigen Plex-, Jellyfin-, Emby-, Navidrome- of Immich-server — samen in één app, gemaakt voor Apple-apparaten.",
+        note: "Gratis download. Chimera bevat geen content — je gebruikt je eigen bronnen.",
     },
     devices: {
-        title: "Begin op het ene scherm. Kijk verder op het andere.",
-        body: "Favorieten, kijkvoortgang en je bronnen synchroniseren via iCloud.",
+        title: "Eén app op elk Apple-scherm.",
+        body: "Favorieten, kijkvoortgang en je bronnen synchroniseren via iCloud, dus wat je op het ene apparaat begint, staat klaar op het volgende.",
         iphone: "iPhone",
         ipad: "iPad",
         mac: "Mac",
@@ -36,7 +36,7 @@ const nl: Strings = {
     },
     live: {
         eyebrow: "Live-tv",
-        title: "Live-tv met een echte gids.",
+        title: "Zappen zonder moeite.",
         body: "Blader door zenders per categorie, zie wat er nu en straks op is en wissel van zender met één tik.",
         points: [
             "Een volledige tv-gids met wat er nu en straks op is",
@@ -47,8 +47,8 @@ const nl: Strings = {
     },
     library: {
         eyebrow: "Films & series",
-        title: "Gaat verder waar je stopte.",
-        body: "Detailpagina’s met artwork en cast, alle seizoenen en afleveringen, en Verder kijken op al je apparaten.",
+        title: "Je bibliotheek, eindelijk thuis.",
+        body: "Uitgebreide detailpagina’s, seizoenen en afleveringen, en Verder kijken, dat precies onthoudt waar je stopte.",
         points: [
             "Artwork, cast en details bij elke titel",
             "Verder kijken en geschiedenis",
@@ -68,9 +68,9 @@ const nl: Strings = {
         ],
     },
     selfhost: {
-        eyebrow: "Selfhosting",
-        title: "Gemaakt voor je eigen server.",
-        body: "Voeg de servers toe die je al draait. Chimera maakt er rechtstreeks verbinding mee, zonder account en zonder tussenstation, en toont alles als één bibliotheek op elk Apple-apparaat.",
+        eyebrow: "Voor selfhosters",
+        title: "Je server verdient een prachtige app.",
+        body: "Koppel Chimera aan de servers die je al draait. Het praat er rechtstreeks mee — geen account, geen relay, geen cloud ertussen — en maakt er één native bibliotheek van op elk Apple-apparaat.",
         servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
         video: {
             servers: "Plex · Jellyfin · Emby",
@@ -81,13 +81,13 @@ const nl: Strings = {
         music: {
             servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
             title: "Muziek",
-            body: "Albums, artiesten, afspeellijsten en songteksten, met Nu aan het spelen op het toegangsscherm.",
+            body: "Een muziekapp die je verzameling verdient: albums, artiesten, afspeellijsten en songteksten, met Nu aan het spelen op het toegangsscherm.",
             points: ["Download je originele bestanden om offline te luisteren", "Afspeellijsten en favorieten", "Songteksten bij het nummer dat speelt"],
         },
         photos: {
             servers: "Immich",
             title: "Foto’s",
-            body: "Je Immich-bibliotheek per jaar, maand of album, schermvullend op iPhone, iPad, Mac en Apple TV.",
+            body: "Je Immich-bibliotheek per jaar, maand of album, in een snelle schermvullende galerie op iPhone, iPad, Mac en Apple TV.",
             points: ["Jaren, maanden en albums", "Schermvullend bekijken", "Foto’s bewaren op je apparaat"],
         },
         books: {
@@ -97,7 +97,7 @@ const nl: Strings = {
             points: ["Je leespositie wordt onthouden", "Download boeken om offline te lezen", "Gratis klassiekers van Project Gutenberg"],
         },
         direct: [
-            { title: "Rechtstreeks naar je server", body: "Chimera heeft zelf geen server, dus er gaat ook niets doorheen." },
+            { title: "Rechtstreeks naar je server", body: "Niets gaat via een Chimera-server — die bestaat niet." },
             { title: "Al je servers, één app", body: "Voeg meerdere servers toe, geef elk een naam en kleur en wissel met één tik." },
             { title: "Eén bibliotheek", body: "Met Chimera Pro komen muziek en foto’s van al je servers samen." },
             { title: "Wachtwoorden blijven waar ze zijn", body: "Serverinloggegevens staan in de sleutelhanger van je apparaat." },
@@ -106,7 +106,7 @@ const nl: Strings = {
     sources: {
         eyebrow: "Je bronnen",
         title: "Gebruik wat je al hebt.",
-        body: "Chimera is een speler. Er zitten geen zenders, films of muziek in. Koppel de diensten die je gebruikt en geef elke bron een naam en een kleur.",
+        body: "Chimera is alleen een speler — er zitten geen zenders, films of muziek in. Koppel de diensten die je gebruikt en geef elke bron een naam en een kleur.",
         list: [
             "Xtream Codes",
             "M3U-playlists",
@@ -135,11 +135,11 @@ const nl: Strings = {
     },
     privacy: {
         eyebrow: "Privacy",
-        title: "Geen account. Geen tracking.",
+        title: "Privé vanaf de basis.",
         points: [
-            { title: "Niets om je voor aan te melden", body: "Open de app en voeg een bron toe." },
-            { title: "Niets wordt gevolgd", body: "Chimera volgt je niet, en de ontwikkelaar ontvangt nooit je gegevens." },
-            { title: "Wachtwoorden blijven op het apparaat", body: "Ze staan in de sleutelhanger en worden nooit gesynchroniseerd." },
+            { title: "Geen account", body: "Open de app en voeg een bron toe. Klaar." },
+            { title: "Geen tracking", body: "Chimera volgt je niet, en de ontwikkelaar ontvangt nooit je gegevens." },
+            { title: "Sleutelhanger", body: "Wachtwoorden blijven in de sleutelhanger van je apparaat en worden nooit gesynchroniseerd." },
         ],
         link: "Lees het privacybeleid (Engels)",
     },
@@ -174,8 +174,8 @@ const nl: Strings = {
         more: "Meer antwoorden op de supportpagina (Engels)",
     },
     cta: {
-        title: "Download Chimera.",
-        body: "Gratis voor iPhone, iPad, Mac en Apple TV.",
+        title: "Je media wacht op je.",
+        body: "Download Chimera en voeg je eerste bron toe.",
     },
     footer: {
         support: "Support",

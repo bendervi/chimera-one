@@ -1,0 +1,18 @@
+---
+// Abstract background art: soft blurred light fields in the Panorama palette
+// (the owner chose abstract imagery over posters and album art). Pure CSS, no
+// image requests. Decorative only.
+interface Props {
+    variant: "hero" | "night" | "soft" | "amber" | "sea" | "violet";
+}
+
+const { variant } = Astro.props;
+---
+
+<div class:list={["aurora", `aurora-${variant}`]} aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="pane pane-a"></span>
+    <span class="pane pane-b"></span>
+</div>

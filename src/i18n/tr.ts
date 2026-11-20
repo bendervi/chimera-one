@@ -4,7 +4,7 @@ const tr: Strings = {
     meta: {
         title: "Chimera — iPhone, iPad, Mac ve Apple TV için IPTV ve Medya Oynatıcı",
         description:
-            "IPTV listelerinizden, Plex, Jellyfin ve Emby’den canlı TV, film, dizi ve müzik; iPhone, iPad, Mac ve Apple TV için tek bir oynatıcıda.",
+            "IPTV listelerinden, Plex, Jellyfin ve Emby’den canlı TV, film, dizi ve müzik — iPhone, iPad, Mac ve Apple TV için tek bir oynatıcıda.",
     },
     nav: {
         features: "Özellikler",
@@ -21,14 +21,14 @@ const tr: Strings = {
     },
     hero: {
         eyebrow: "iPhone, iPad, Mac ve Apple TV için",
-        title: "Tüm medyanız\ntek bir uygulamada.",
+        title: "Tüm medyan.\nTek bir güzel oynatıcı.",
         subtitle:
-            "IPTV listelerinizden ve kendi Plex, Jellyfin, Emby, Navidrome ya da Immich sunucunuzdan canlı TV, film, dizi, müzik, fotoğraf ve kitap. iPhone, iPad, Mac ve Apple TV için yapıldı.",
-        note: "Ücretsiz indirin. Chimera içerik sunmaz; kendi kaynaklarınızı eklersiniz.",
+            "IPTV listelerinizden ve kendi Plex, Jellyfin, Emby, Navidrome ya da Immich sunucunuzdan canlı TV, film, dizi, müzik, fotoğraf ve kitap — Apple aygıtları için yapılmış tek bir uygulamada.",
+        note: "Ücretsiz indirin. Chimera içerik sunmaz — kendi kaynaklarınızı kullanırsınız.",
     },
     devices: {
-        title: "Bir ekranda başlayın. Diğerinde bitirin.",
-        body: "Favoriler, izleme ilerlemesi ve kaynaklarınız iCloud ile eşzamanlanır.",
+        title: "Her Apple ekranında tek uygulama.",
+        body: "Favoriler, izleme ilerlemesi ve kaynaklarınız iCloud ile eşzamanlanır; bir aygıtta başladığınız şey diğerinde sizi bekler.",
         iphone: "iPhone",
         ipad: "iPad",
         mac: "Mac",
@@ -36,7 +36,7 @@ const tr: Strings = {
     },
     live: {
         eyebrow: "Canlı TV",
-        title: "Gerçek bir rehberle canlı TV.",
+        title: "Zahmetsiz kanal gezintisi.",
         body: "Kanallara kategoriye göre göz atın, şimdi ve sonra ne olduğunu görün, tek dokunuşla kanal değiştirin.",
         points: [
             "Şimdi ve sonra yayınlananları gösteren tam bir TV rehberi",
@@ -47,8 +47,8 @@ const tr: Strings = {
     },
     library: {
         eyebrow: "Filmler ve Diziler",
-        title: "Kaldığınız yerden devam eder.",
-        body: "Kapak ve oyuncu bilgili ayrıntı sayfaları, tüm sezonlar ve bölümler, ve tüm aygıtlarınızda İzlemeye Devam Et.",
+        title: "Arşiviniz sonunda evinde.",
+        body: "Zengin ayrıntı sayfaları, sezonlar ve bölümler, ve tam olarak nerede kaldığınızı hatırlayan İzlemeye Devam Et.",
         points: [
             "Her içerik için kapak, oyuncular ve ayrıntılar",
             "İzlemeye Devam Et ve geçmiş",
@@ -68,9 +68,9 @@ const tr: Strings = {
         ],
     },
     selfhost: {
-        eyebrow: "Kendi sunucunuz",
-        title: "Kendi sunucunuz için yapıldı.",
-        body: "Zaten çalıştırdığınız sunucuları ekleyin. Chimera onlara doğrudan bağlanır, hesap ve aracı olmadan, ve her şeyi her Apple aygıtınızda tek bir arşiv olarak gösterir.",
+        eyebrow: "Kendi sunucusunu çalıştıranlar için",
+        title: "Sunucunuz güzel bir uygulamayı hak ediyor.",
+        body: "Chimera’yı zaten çalıştırdığınız sunuculara bağlayın. Onlarla doğrudan konuşur — hesap yok, aracı yok, arada bulut yok — ve hepsini her Apple aygıtında tek bir yerel arşive dönüştürür.",
         servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
         video: {
             servers: "Plex · Jellyfin · Emby",
@@ -81,13 +81,13 @@ const tr: Strings = {
         music: {
             servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
             title: "Müzik",
-            body: "Albümler, sanatçılar, çalma listeleri ve şarkı sözleri; kilitli ekranda Şimdi Çalıyor.",
+            body: "Koleksiyonunuza yakışan bir müzik uygulaması: albümler, sanatçılar, çalma listeleri ve şarkı sözleri; kilitli ekranda Şimdi Çalıyor.",
             points: ["Çevrimdışı dinlemek için orijinal dosyalarınızı indirin", "Çalma listeleri ve favoriler", "Çalan şarkının sözleri"],
         },
         photos: {
             servers: "Immich",
             title: "Fotoğraflar",
-            body: "Immich arşiviniz yıla, aya veya albüme göre; iPhone, iPad, Mac ve Apple TV’de tam ekran.",
+            body: "Immich arşiviniz yıla, aya veya albüme göre; iPhone, iPad, Mac ve Apple TV’de hızlı, tam ekran bir galeride.",
             points: ["Yıllar, aylar ve albümler", "Tam ekran görüntüleme", "Fotoğrafları aygıtınıza kaydedin"],
         },
         books: {
@@ -97,7 +97,7 @@ const tr: Strings = {
             points: ["Okuma konumunuz hatırlanır", "Çevrimdışı okumak için kitap indirin", "Project Gutenberg’den ücretsiz klasikler"],
         },
         direct: [
-            { title: "Doğrudan sunucunuza", body: "Chimera’nın kendi sunucusu yok, dolayısıyla hiçbir şey bir sunucudan geçmez." },
+            { title: "Doğrudan sunucunuza", body: "Hiçbir şey bir Chimera sunucusundan geçmez — öyle bir sunucu yok." },
             { title: "Tüm sunucular, tek uygulama", body: "Birden çok sunucu ekleyin, her birine ad ve renk verin, tek dokunuşla geçiş yapın." },
             { title: "Tek arşiv", body: "Chimera Pro ile tüm sunucularınızdaki müzik ve fotoğraflar bir araya gelir." },
             { title: "Parolalar yerinde kalır", body: "Sunucu bilgileri aygıtınızın Anahtar Zinciri’nde durur." },
@@ -106,7 +106,7 @@ const tr: Strings = {
     sources: {
         eyebrow: "Kaynaklarınız",
         title: "Zaten sahip olduklarınızı getirin.",
-        body: "Chimera bir oynatıcıdır. Kanal, film ya da müzik içermez. Kullandığınız servisleri bağlayın ve her kaynağa bir ad ve renk verin.",
+        body: "Chimera yalnızca bir oynatıcıdır — kanal, film ya da müzik içermez. Kullandığınız servisleri bağlayın ve her kaynağa bir ad ve renk verin.",
         list: [
             "Xtream Codes",
             "M3U listeleri",
@@ -135,11 +135,11 @@ const tr: Strings = {
     },
     privacy: {
         eyebrow: "Gizlilik",
-        title: "Hesap yok. Takip yok.",
+        title: "Tasarımı gereği gizli.",
         points: [
-            { title: "Kayıt gerekmez", body: "Uygulamayı açın ve bir kaynak ekleyin." },
-            { title: "Hiçbir şey takip edilmez", body: "Chimera sizi takip etmez ve geliştirici verilerinizi asla almaz." },
-            { title: "Parolalar aygıtta kalır", body: "Anahtar Zinciri’nde durur ve asla eşzamanlanmaz." },
+            { title: "Hesap yok", body: "Uygulamayı açın ve bir kaynak ekleyin. Hepsi bu." },
+            { title: "Takip yok", body: "Chimera sizi takip etmez ve geliştirici verilerinizi asla almaz." },
+            { title: "Anahtar Zinciri", body: "Parolalar aygıtınızın Anahtar Zinciri’nde kalır ve asla eşzamanlanmaz." },
         ],
         link: "Gizlilik Politikası’nı okuyun (İngilizce)",
     },
@@ -174,8 +174,8 @@ const tr: Strings = {
         more: "Destek sayfasında daha fazla yanıt (İngilizce)",
     },
     cta: {
-        title: "Chimera’yı indirin.",
-        body: "iPhone, iPad, Mac ve Apple TV’de ücretsiz.",
+        title: "Medyanız sizi bekliyor.",
+        body: "Chimera’yı indirin ve ilk kaynağınızı ekleyin.",
     },
     footer: {
         support: "Destek",
