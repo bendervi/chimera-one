@@ -7,7 +7,7 @@ export const appStoreID = "6811187145";
  * Campaigns). Empty until the owner copies it from App Store Connect; without
  * it the links still work, they just aren't attributed.
  */
-export const providerToken = "";
+export const providerToken = "129446816";
 
 /** App Store link tagged with an App Analytics campaign (`ct`). */
 export function storeURL(campaign: string, mac = false): string {
