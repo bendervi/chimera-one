@@ -171,7 +171,7 @@ const en = {
         liveIPad: "Live TV on iPad, with Continue Watching, the guide and all channels",
         detail: "A movie's detail page on iPhone",
         ipadHome: "Chimera's Home on iPad",
-        player: "A video playing in Chimera on iPad",
+        player: "A live channel playing in Chimera's player",
         music: "Now Playing with a Chopin album",
         books: "The detail page of a book",
         photos: "A photo library of space images",

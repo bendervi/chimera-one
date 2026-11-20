@@ -21,7 +21,7 @@ interface Props {
 const { locale, title, description, page, localized = false, jsonLD = [] } = Astro.props;
 const site = Astro.site ?? new URL("https://getchimera.app");
 const canonical = new URL(href(locale, page), site).href;
-const ogImage = new URL("/og.png", site).href;
+const ogImage = new URL(`/og/${locale.path || "en"}.jpg`, site).href;
 ---
 
 <!doctype html>
