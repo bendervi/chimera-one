@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Chimera has moved to getchimera.app</title>
+<script>
+// bendervi.github.io/chimera-one/<path> → getchimera.app/<path> (old addresses
+// live on in shipped app builds). Keeps the query and fragment.
+(function () {
+    var path = location.pathname.replace(/^\/chimera-one/, "") || "/";
+    var map = { "/privacy.html": "/privacy/", "/privacy-tv.html": "/privacy/tv/", "/support.html": "/support/", "/index.html": "/" };
+    location.replace("https://getchimera.app" + (map[path] || path) + location.search + location.hash);
+})();
+</script>
+<meta http-equiv="refresh" content="1; url=https://getchimera.app/">
+</head>
+<body><p>Chimera has moved to <a href="https://getchimera.app/">getchimera.app</a>.</p></body>
+</html>

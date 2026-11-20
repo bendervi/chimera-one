@@ -1,0 +1,15 @@
+# Cloudflare Pages response headers.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=()
+
+# Fingerprinted build assets never change.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The Cast receiver is live on every user's TV: always revalidate so a fix
+# reaches TVs on the next cast, not after a cache expires.
+/receiver/*
+  Cache-Control: no-cache

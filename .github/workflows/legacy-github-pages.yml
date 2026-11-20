@@ -1,8 +1,8 @@
-# Builds the site and publishes it to GitHub Pages (getchimera.app).
-# The Cast receiver is part of this deploy: `npm run build` fails if
-# dist/receiver/ differs from public/receiver/ by a single byte.
+# Publishes the OLD address, bendervi.github.io/chimera-one/: a copy of the Cast
+# receiver plus redirects to getchimera.app (see legacy-github-pages/README.md).
+# The site itself is built and hosted by Cloudflare Pages.
 # Repo Settings › Pages › Source must be "GitHub Actions".
-name: Deploy
+name: Legacy GitHub Pages
 
 on:
   push:
@@ -23,15 +23,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+      - name: Assemble
+        run: |
+          mkdir -p out
+          cp -R public/receiver out/receiver
+          diff -r public/receiver out/receiver
+          for page in index privacy privacy-tv support 404; do
+            cp legacy-github-pages/redirect.html "out/$page.html"
+          done
+          touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: out
 
   deploy:
     needs: build
