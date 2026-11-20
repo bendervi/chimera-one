@@ -8,6 +8,7 @@ const tr: Strings = {
     },
     nav: {
         features: "Özellikler",
+        selfhost: "Kendi sunucunuz",
         pro: "Pro",
         support: "Destek",
         download: "İndir",
@@ -22,7 +23,7 @@ const tr: Strings = {
         eyebrow: "iPhone, iPad, Mac ve Apple TV için",
         title: "Tüm medyan.\nTek bir güzel oynatıcı.",
         subtitle:
-            "IPTV listelerinden, Plex, Jellyfin ve Emby’den canlı TV, film, dizi ve müzik — Apple aygıtları için yapılmış tek bir uygulamada.",
+            "IPTV listelerinizden ve kendi Plex, Jellyfin, Emby, Navidrome ya da Immich sunucunuzdan canlı TV, film, dizi, müzik, fotoğraf ve kitap — Apple aygıtları için yapılmış tek bir uygulamada.",
         note: "Ücretsiz indirin. Chimera içerik sunmaz — kendi kaynaklarınızı kullanırsınız.",
     },
     devices: {
@@ -66,21 +67,41 @@ const tr: Strings = {
             "iPhone, iPad ve Mac’te Chromecast",
         ],
     },
-    more: {
-        eyebrow: "Müzik, Kitaplar ve Fotoğraflar",
-        title: "Filmlerden fazlası.",
-        music: {
-            title: "Müzik",
-            body: "Müzik sunucunuzdan çalma listeleri, favoriler ve şarkı sözleriyle dinleyin.",
+    selfhost: {
+        eyebrow: "Kendi sunucusunu çalıştıranlar için",
+        title: "Sunucunuz güzel bir uygulamayı hak ediyor.",
+        body: "Chimera’yı zaten çalıştırdığınız sunuculara bağlayın. Onlarla doğrudan konuşur — hesap yok, aracı yok, arada bulut yok — ve hepsini her Apple aygıtında tek bir yerel arşive dönüştürür.",
+        servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
+        video: {
+            servers: "Plex · Jellyfin · Emby",
+            title: "Filmler ve diziler",
+            body: "Kapaklar, sezonlar ve bölümlerle tüm arşiviniz; iPhone’dan Apple TV’ye sizi takip eden İzlemeye Devam Et.",
+            points: ["MKV, HEVC ve AC-3 otomatik yedek motorla oynar", "Çevrimdışı izlemek için indirmeler", "Altyazılar ve ses parçaları, istediğiniz gibi"],
         },
-        books: {
-            title: "Kitaplar",
-            body: "Kendi kitaplığınızdan ya da bir katalogdan EPUB ve PDF kitaplar okuyun.",
+        music: {
+            servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
+            title: "Müzik",
+            body: "Koleksiyonunuza yakışan bir müzik uygulaması: albümler, sanatçılar, çalma listeleri ve şarkı sözleri; kilitli ekranda Şimdi Çalıyor.",
+            points: ["Çevrimdışı dinlemek için orijinal dosyalarınızı indirin", "Çalma listeleri ve favoriler", "Çalan şarkının sözleri"],
         },
         photos: {
+            servers: "Immich",
             title: "Fotoğraflar",
-            body: "Fotoğraf arşivinize yıla, aya veya albüme göre göz atın.",
+            body: "Immich arşiviniz yıla, aya veya albüme göre; iPhone, iPad, Mac ve Apple TV’de hızlı, tam ekran bir galeride.",
+            points: ["Yıllar, aylar ve albümler", "Tam ekran görüntüleme", "Fotoğrafları aygıtınıza kaydedin"],
         },
+        books: {
+            servers: "Komga · OPDS katalogları · Project Gutenberg",
+            title: "Kitaplar",
+            body: "Komga gibi bir OPDS kataloğu bağlayın ve EPUB ile PDF kitapları her aygıt için yapılmış bir okuyucuda okuyun.",
+            points: ["Okuma konumunuz hatırlanır", "Çevrimdışı okumak için kitap indirin", "Project Gutenberg’den ücretsiz klasikler"],
+        },
+        direct: [
+            { title: "Doğrudan sunucunuza", body: "Hiçbir şey bir Chimera sunucusundan geçmez — öyle bir sunucu yok." },
+            { title: "Tüm sunucular, tek uygulama", body: "Birden çok sunucu ekleyin, her birine ad ve renk verin, tek dokunuşla geçiş yapın." },
+            { title: "Tek arşiv", body: "Chimera Pro ile tüm sunucularınızdaki müzik ve fotoğraflar bir araya gelir." },
+            { title: "Parolalar yerinde kalır", body: "Sunucu bilgileri aygıtınızın Anahtar Zinciri’nde durur." },
+        ],
     },
     sources: {
         eyebrow: "Kaynaklarınız",
@@ -130,6 +151,10 @@ const tr: Strings = {
                 a: "Hayır. Chimera yalnızca bir oynatıcıdır. Kendi kaynaklarınızı eklersiniz: kullanma yetkiniz olan bir IPTV aboneliği, kendi Plex, Jellyfin veya Emby sunucunuz ya da kendi bulut depolamanız.",
             },
             {
+                q: "Plex, Jellyfin veya Emby sunucumla çalışır mı?",
+                a: "Evet. Sunucunuzu kaynak olarak ekleyin; Chimera filmlerini, dizilerini ve müziğini gösterir. Plex, Plex hesabınızla giriş yapar; Jellyfin ve Emby sunucu adresini, kullanıcı adınızı ve parolanızı kullanır.",
+            },
+            {
                 q: "Hangi kaynakları ekleyebilirim?",
                 a: "Xtream Codes ve M3U listeleri, Plex, Jellyfin ve Emby sunucuları, müzik için Navidrome veya Subsonic, fotoğraflar için Immich, OPDS kitap katalogları ve Dropbox ya da MEGA.",
             },
@@ -175,6 +200,10 @@ const tr: Strings = {
         sources: "Chimera’da kaynak ekleme: Xtream, M3U, Plex, Jellyfin ve daha fazlası",
         macBook: "Mac için Chimera’da bir kitabın ayrıntı sayfası",
         tvPhoto: "Apple TV’de Jüpiter’in bir fotoğrafı",
+        detailDark: "Bir medya sunucusundaki filmin ayrıntı sayfası; Oynat ve İndir",
+        musicAlbum: "Şarkılarıyla bir Chopin albümü; Oynat ve Karıştır",
+        photoViewer: "Tam ekranda Jüpiter fotoğrafı",
+        reader: "Okuyucuda Sherlock Holmes’un Maceraları’ndan bir sayfa",
     },
 };
 

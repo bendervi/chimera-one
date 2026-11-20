@@ -8,6 +8,7 @@ const nl: Strings = {
     },
     nav: {
         features: "Functies",
+        selfhost: "Selfhosting",
         pro: "Pro",
         support: "Support",
         download: "Download",
@@ -22,7 +23,7 @@ const nl: Strings = {
         eyebrow: "Voor iPhone, iPad, Mac en Apple TV",
         title: "Al je media.\nEén prachtige speler.",
         subtitle:
-            "Live-tv, films, series en muziek uit je IPTV-playlists, Plex, Jellyfin en Emby — samen in één app, gemaakt voor Apple-apparaten.",
+            "Live-tv, films, series, muziek, foto’s en boeken uit je IPTV-playlists en je eigen Plex-, Jellyfin-, Emby-, Navidrome- of Immich-server — samen in één app, gemaakt voor Apple-apparaten.",
         note: "Gratis download. Chimera bevat geen content — je gebruikt je eigen bronnen.",
     },
     devices: {
@@ -66,21 +67,41 @@ const nl: Strings = {
             "Chromecast op iPhone, iPad en Mac",
         ],
     },
-    more: {
-        eyebrow: "Muziek, boeken & foto’s",
-        title: "Meer dan films.",
-        music: {
-            title: "Muziek",
-            body: "Stream vanaf je muziekserver, met afspeellijsten, favorieten en songteksten.",
+    selfhost: {
+        eyebrow: "Voor selfhosters",
+        title: "Je server verdient een prachtige app.",
+        body: "Koppel Chimera aan de servers die je al draait. Het praat er rechtstreeks mee — geen account, geen relay, geen cloud ertussen — en maakt er één native bibliotheek van op elk Apple-apparaat.",
+        servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
+        video: {
+            servers: "Plex · Jellyfin · Emby",
+            title: "Films en series",
+            body: "Je hele bibliotheek met artwork, seizoenen en afleveringen, en Verder kijken dat je volgt van iPhone tot Apple TV.",
+            points: ["MKV, HEVC en AC-3 spelen via de automatische reserve-engine", "Downloads om offline te kijken", "Ondertitels en audiosporen zoals jij ze wilt"],
         },
-        books: {
-            title: "Boeken",
-            body: "Lees EPUB- en PDF-boeken uit je eigen bibliotheek of een catalogus.",
+        music: {
+            servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
+            title: "Muziek",
+            body: "Een muziekapp die je verzameling verdient: albums, artiesten, afspeellijsten en songteksten, met Nu aan het spelen op het toegangsscherm.",
+            points: ["Download je originele bestanden om offline te luisteren", "Afspeellijsten en favorieten", "Songteksten bij het nummer dat speelt"],
         },
         photos: {
+            servers: "Immich",
             title: "Foto’s",
-            body: "Blader door je fotobibliotheek per jaar, maand of album.",
+            body: "Je Immich-bibliotheek per jaar, maand of album, in een snelle schermvullende galerie op iPhone, iPad, Mac en Apple TV.",
+            points: ["Jaren, maanden en albums", "Schermvullend bekijken", "Foto’s bewaren op je apparaat"],
         },
+        books: {
+            servers: "Komga · OPDS-catalogi · Project Gutenberg",
+            title: "Boeken",
+            body: "Koppel een OPDS-catalogus zoals Komga en lees EPUB- en PDF-boeken in een lezer gemaakt voor elk apparaat.",
+            points: ["Je leespositie wordt onthouden", "Download boeken om offline te lezen", "Gratis klassiekers van Project Gutenberg"],
+        },
+        direct: [
+            { title: "Rechtstreeks naar je server", body: "Niets gaat via een Chimera-server — die bestaat niet." },
+            { title: "Al je servers, één app", body: "Voeg meerdere servers toe, geef elk een naam en kleur en wissel met één tik." },
+            { title: "Eén bibliotheek", body: "Met Chimera Pro komen muziek en foto’s van al je servers samen." },
+            { title: "Wachtwoorden blijven waar ze zijn", body: "Serverinloggegevens staan in de sleutelhanger van je apparaat." },
+        ],
     },
     sources: {
         eyebrow: "Je bronnen",
@@ -130,6 +151,10 @@ const nl: Strings = {
                 a: "Nee. Chimera is alleen een speler. Je voegt je eigen bronnen toe: een IPTV-abonnement dat je mag gebruiken, je eigen Plex-, Jellyfin- of Emby-server, of je eigen cloudopslag.",
             },
             {
+                q: "Werkt het met mijn Plex-, Jellyfin- of Emby-server?",
+                a: "Ja. Voeg je server toe als bron en Chimera toont de films, series en muziek. Plex logt in met je Plex-account; Jellyfin en Emby gebruiken het serveradres, je gebruikersnaam en wachtwoord.",
+            },
+            {
                 q: "Welke bronnen kan ik toevoegen?",
                 a: "Xtream Codes- en M3U-playlists, Plex-, Jellyfin- en Emby-servers, Navidrome of Subsonic voor muziek, Immich voor foto’s, OPDS-boekcatalogi, en Dropbox of MEGA.",
             },
@@ -175,6 +200,10 @@ const nl: Strings = {
         sources: "Een bron toevoegen in Chimera: Xtream, M3U, Plex, Jellyfin en meer",
         macBook: "De detailpagina van een boek in Chimera voor Mac",
         tvPhoto: "Een foto van Jupiter op Apple TV",
+        detailDark: "De detailpagina van een film van een mediaserver, met Speel af en Download",
+        musicAlbum: "Een album van Chopin met de nummers, Speel af en Shuffle",
+        photoViewer: "Een foto van Jupiter schermvullend",
+        reader: "Een pagina uit De avonturen van Sherlock Holmes in de lezer",
     },
 };
 

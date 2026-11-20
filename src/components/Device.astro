@@ -1,7 +1,12 @@
 ---
-// A real app capture inside a CSS device frame (iPhone, iPad, Mac, Apple TV
+// A real app capture inside a CSS device model (iPhone, iPad, Mac, Apple TV
 // or a bare rounded display). Captures are never edited — the frame, shadow and
 // crop are the only additions (app-store-assets.md truth rules).
+//
+// The iPhone uses the App Store renderer's proportions (appstore-assets/drafts/
+// render.py: a current Pro Max, as fractions of body width) through container
+// query units, so it is exact at any size: titanium rim 0.95%, black bezel
+// 1.7%, corner radius 16.5%, Dynamic Island 27% × 7.8% of the screen width.
 import { Picture } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
@@ -12,10 +17,12 @@ interface Props {
     /** `sizes` attribute — how wide the capture renders at each breakpoint. */
     sizes: string;
     eager?: boolean;
+    /** Titanium finish for phones and iPads (dark sections switch to black in CSS). */
+    finish?: "natural" | "black";
     class?: string;
 }
 
-const { src, alt, kind, sizes, eager = false, class: extra } = Astro.props;
+const { src, alt, kind, sizes, eager = false, finish = "natural", class: extra } = Astro.props;
 const widths = {
     phone: [280, 420, 640, 860],
     ipad: [400, 640, 960, 1280],
@@ -23,20 +30,38 @@ const widths = {
     tv: [480, 800, 1200, 1800],
     display: [480, 800, 1200, 1800, 2400],
 }[kind];
+const hasButtons = kind === "phone";
 ---
 
-<figure class:list={["device", `device-${kind}`, extra]}>
-    <div class="device-screen">
-        <Picture
-            src={src}
-            alt={alt}
-            formats={["avif"]}
-            fallbackFormat="webp"
-            widths={widths}
-            sizes={sizes}
-            loading={eager ? "eager" : "lazy"}
-            fetchpriority={eager ? "high" : "auto"}
-            decoding="async"
-        />
+<figure class:list={["device", `device-${kind}`, `finish-${finish}`, extra]}>
+    <div class="device-body">
+        {
+            hasButtons && (
+                <>
+                    <span class="device-btn btn-action" aria-hidden="true" />
+                    <span class="device-btn btn-vol-up" aria-hidden="true" />
+                    <span class="device-btn btn-vol-down" aria-hidden="true" />
+                    <span class="device-btn btn-side" aria-hidden="true" />
+                    <span class="device-btn btn-camera" aria-hidden="true" />
+                </>
+            )
+        }
+        <div class="device-bezel">
+            <div class="device-screen">
+                <Picture
+                    src={src}
+                    alt={alt}
+                    formats={["avif"]}
+                    fallbackFormat="webp"
+                    widths={widths}
+                    sizes={sizes}
+                    loading={eager ? "eager" : "lazy"}
+                    fetchpriority={eager ? "high" : "auto"}
+                    decoding="async"
+                />
+                {kind === "phone" && <span class="device-island" aria-hidden="true" />}
+                <span class="device-glare" aria-hidden="true"></span>
+            </div>
+        </div>
     </div>
 </figure>

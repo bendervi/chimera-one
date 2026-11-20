@@ -22,10 +22,11 @@ import tvLive from "../assets/captures/tv-livetv.png";
 import tvGuide from "../assets/captures/tv-guide.png";
 import detail from "../assets/captures/detail.png";
 import player from "../assets/captures/player-landscape.png";
-import music from "../assets/captures/music-nowplaying.png";
-import book from "../assets/captures/book-detail.png";
-import gallery from "../assets/captures/gallery.png";
 import sourceTypes from "../assets/captures/sourcetypes.png";
+import detailDark from "../assets/captures/detail-dark.png";
+import musicAlbum from "../assets/captures/music-album.png";
+import photoViewer from "../assets/captures/gallery-photo.png";
+import reader from "../assets/captures/book-reader-chrome.png";
 
 interface Props {
     locale: Locale;
@@ -34,6 +35,12 @@ interface Props {
 const { locale } = Astro.props;
 const t = locale.strings;
 const lines = (s: string) => s.split("\n");
+const hostCards = [
+    { key: "video", aurora: "night", text: t.selfhost.video, shot: detailDark, alt: t.alt.detailDark },
+    { key: "music", aurora: "amber", text: t.selfhost.music, shot: musicAlbum, alt: t.alt.musicAlbum },
+    { key: "photos", aurora: "violet", text: t.selfhost.photos, shot: photoViewer, alt: t.alt.photoViewer },
+    { key: "books", aurora: "sea", text: t.selfhost.books, shot: reader, alt: t.alt.reader },
+] as const;
 ---
 
 <!-- Hero -->
@@ -99,6 +106,52 @@ const lines = (s: string) => s.split("\n");
     </div>
 </section>
 
+<!-- Self-hosting: video servers, music, photos, books -->
+<section class="section section-alt selfhost" id="self-hosting" aria-labelledby="selfhost-title">
+    <div class="wrap center reveal">
+        <p class="eyebrow">{t.selfhost.eyebrow}</p>
+        <h2 id="selfhost-title" class="section-title">{t.selfhost.title}</h2>
+        <p class="section-body">{t.selfhost.body}</p>
+    </div>
+    <ul class="wrap-wide server-strip reveal" aria-label={t.selfhost.eyebrow}>
+        {t.selfhost.servers.map((name) => <li>{name}</li>)}
+    </ul>
+    <div class="wrap-wide host-grid">
+        {
+            hostCards.map((card) => (
+                <article class:list={["host-card", `host-${card.key}`, "reveal"]}>
+                    <Aurora variant={card.aurora} />
+                    <div class="host-copy">
+                        <p class="host-servers">{card.text.servers}</p>
+                        <h3>{card.text.title}</h3>
+                        <p class="host-body">{card.text.body}</p>
+                        <ul class="host-points">{card.text.points.map((p) => <li>{p}</li>)}</ul>
+                    </div>
+                    <div class="host-visual">
+                        <Device
+                            kind="phone"
+                            finish="black"
+                            src={card.shot}
+                            alt={card.alt}
+                            sizes="(max-width: 734px) 60vw, (max-width: 1068px) 34vw, 250px"
+                        />
+                    </div>
+                </article>
+            ))
+        }
+    </div>
+    <ul class="wrap-wide direct-grid reveal">
+        {
+            t.selfhost.direct.map((d) => (
+                <li>
+                    <strong>{d.title}</strong>
+                    <span>{d.body}</span>
+                </li>
+            ))
+        }
+    </ul>
+</section>
+
 <!-- Live TV -->
 <section class="section band-dark" aria-labelledby="live-title">
     <Aurora variant="night" />
@@ -152,34 +205,6 @@ const lines = (s: string) => s.split("\n");
     </div>
     <div class="wrap-wide feature-visual reveal">
         <Device kind="display" src={player} alt={t.alt.player} sizes="(max-width: 734px) 92vw, (max-width: 1068px) 88vw, 1100px" />
-    </div>
-</section>
-
-<!-- Music, Books, Photos -->
-<section class="section" aria-labelledby="more-title">
-    <div class="wrap center reveal">
-        <p class="eyebrow">{t.more.eyebrow}</p>
-        <h2 id="more-title" class="section-title">{t.more.title}</h2>
-    </div>
-    <div class="wrap-wide bento snap-row" role="list">
-        <article class="bento-card bento-music reveal" role="listitem">
-            <Aurora variant="amber" />
-            <h3>{t.more.music.title}</h3>
-            <p>{t.more.music.body}</p>
-            <Device kind="phone" src={music} alt={t.alt.music} sizes="(max-width: 734px) 52vw, 220px" />
-        </article>
-        <article class="bento-card bento-books reveal" role="listitem">
-            <Aurora variant="sea" />
-            <h3>{t.more.books.title}</h3>
-            <p>{t.more.books.body}</p>
-            <Device kind="phone" src={book} alt={t.alt.books} sizes="(max-width: 734px) 52vw, 220px" />
-        </article>
-        <article class="bento-card bento-photos reveal" role="listitem">
-            <Aurora variant="violet" />
-            <h3>{t.more.photos.title}</h3>
-            <p>{t.more.photos.body}</p>
-            <Device kind="phone" src={gallery} alt={t.alt.photos} sizes="(max-width: 734px) 52vw, 220px" />
-        </article>
     </div>
 </section>
 

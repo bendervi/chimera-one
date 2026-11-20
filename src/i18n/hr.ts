@@ -8,6 +8,7 @@ const hr: Strings = {
     },
     nav: {
         features: "Značajke",
+        selfhost: "Vlastiti poslužitelj",
         pro: "Pro",
         support: "Podrška",
         download: "Preuzmi",
@@ -22,7 +23,7 @@ const hr: Strings = {
         eyebrow: "Za iPhone, iPad, Mac i Apple TV",
         title: "Svi tvoji mediji.\nJedan prekrasan player.",
         subtitle:
-            "TV uživo, filmovi, serije i glazba s tvojih IPTV popisa, Plexa, Jellyfina i Embyja — zajedno u jednoj aplikaciji stvorenoj za Apple uređaje.",
+            "TV uživo, filmovi, serije, glazba, fotografije i knjige s tvojih IPTV popisa i vlastitog Plex, Jellyfin, Emby, Navidrome ili Immich poslužitelja — zajedno u jednoj aplikaciji stvorenoj za Apple uređaje.",
         note: "Besplatno preuzimanje. Chimera ne sadrži sadržaj — koristiš vlastite izvore.",
     },
     devices: {
@@ -66,21 +67,41 @@ const hr: Strings = {
             "Chromecast na iPhoneu, iPadu i Macu",
         ],
     },
-    more: {
-        eyebrow: "Glazba, knjige i fotografije",
-        title: "Više od filmova.",
-        music: {
-            title: "Glazba",
-            body: "Slušaj sa svog glazbenog poslužitelja, s popisima za reprodukciju, favoritima i tekstovima.",
+    selfhost: {
+        eyebrow: "Za one s vlastitim poslužiteljem",
+        title: "Tvoj poslužitelj zaslužuje prekrasnu aplikaciju.",
+        body: "Poveži Chimeru s poslužiteljima koje već imaš. Razgovara s njima izravno — bez računa, bez posrednika, bez oblaka između — i pretvara ih u jednu izvornu zbirku na svakom Apple uređaju.",
+        servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
+        video: {
+            servers: "Plex · Jellyfin · Emby",
+            title: "Filmovi i serije",
+            body: "Cijela tvoja zbirka s naslovnicama, sezonama i epizodama te Nastavi gledati, koji te prati od iPhonea do Apple TV-a.",
+            points: ["MKV, HEVC i AC-3 reproducira automatski rezervni mehanizam", "Preuzimanja za gledanje izvan mreže", "Titlovi i audiozapisi po tvom ukusu"],
         },
-        books: {
-            title: "Knjige",
-            body: "Čitaj EPUB i PDF knjige iz vlastite zbirke ili kataloga.",
+        music: {
+            servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
+            title: "Glazba",
+            body: "Glazbena aplikacija dostojna tvoje kolekcije: albumi, izvođači, popisi za reprodukciju i tekstovi, uz Upravo svira na zaključanom zaslonu.",
+            points: ["Preuzmi izvorne datoteke za slušanje izvan mreže", "Popisi za reprodukciju i favoriti", "Tekst pjesme koja svira"],
         },
         photos: {
+            servers: "Immich",
             title: "Fotografije",
-            body: "Pregledavaj svoje fotografije po godini, mjesecu ili albumu.",
+            body: "Tvoja Immich zbirka po godini, mjesecu ili albumu, u brzoj galeriji preko cijelog zaslona na iPhoneu, iPadu, Macu i Apple TV-u.",
+            points: ["Godine, mjeseci i albumi", "Prikaz preko cijelog zaslona", "Spremi fotografije na uređaj"],
         },
+        books: {
+            servers: "Komga · OPDS katalozi · Project Gutenberg",
+            title: "Knjige",
+            body: "Poveži OPDS katalog poput Komge i čitaj EPUB i PDF knjige u čitaču stvorenom za svaki uređaj.",
+            points: ["Pamti gdje si stao s čitanjem", "Preuzmi knjige za čitanje izvan mreže", "Besplatni klasici s Project Gutenberga"],
+        },
+        direct: [
+            { title: "Izravno do tvog poslužitelja", body: "Ništa ne prolazi kroz Chimerin poslužitelj — takav ne postoji." },
+            { title: "Svi poslužitelji, jedna aplikacija", body: "Dodaj više poslužitelja, svakom daj ime i boju i prebacuj se jednim dodirom." },
+            { title: "Jedna zbirka", body: "Uz Chimera Pro glazba i fotografije sa svih tvojih poslužitelja su na jednom mjestu." },
+            { title: "Lozinke ostaju na mjestu", body: "Podaci za prijavu na poslužitelje čuvaju se u privjesku ključeva uređaja." },
+        ],
     },
     sources: {
         eyebrow: "Tvoji izvori",
@@ -130,6 +151,10 @@ const hr: Strings = {
                 a: "Ne. Chimera je samo player. Dodaješ vlastite izvore: IPTV pretplatu za koju imaš ovlaštenje, vlastiti Plex, Jellyfin ili Emby poslužitelj ili vlastitu pohranu u oblaku.",
             },
             {
+                q: "Radi li s mojim Plex, Jellyfin ili Emby poslužiteljem?",
+                a: "Da. Dodaj poslužitelj kao izvor i Chimera prikazuje njegove filmove, serije i glazbu. Plex se prijavljuje tvojim Plex računom; Jellyfin i Emby koriste adresu poslužitelja, korisničko ime i lozinku.",
+            },
+            {
                 q: "Koje izvore mogu dodati?",
                 a: "Xtream Codes i M3U popise, Plex, Jellyfin i Emby poslužitelje, Navidrome ili Subsonic za glazbu, Immich za fotografije, OPDS kataloge knjiga te Dropbox ili MEGA.",
             },
@@ -175,6 +200,10 @@ const hr: Strings = {
         sources: "Dodavanje izvora u Chimeri: Xtream, M3U, Plex, Jellyfin i drugi",
         macBook: "Stranica knjige u Chimeri za Mac",
         tvPhoto: "Fotografija Jupitera na Apple TV-u",
+        detailDark: "Stranica filma s medijskog poslužitelja, s Reproduciraj i Preuzmi",
+        musicAlbum: "Chopinov album sa skladbama, Reproduciraj i Nasumično",
+        photoViewer: "Fotografija Jupitera preko cijelog zaslona",
+        reader: "Stranica iz Pustolovina Sherlocka Holmesa u čitaču",
     },
 };
 

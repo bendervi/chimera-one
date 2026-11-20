@@ -8,6 +8,7 @@ const es: Strings = {
     },
     nav: {
         features: "Funciones",
+        selfhost: "Autoalojamiento",
         pro: "Pro",
         support: "Soporte",
         download: "Descargar",
@@ -22,7 +23,7 @@ const es: Strings = {
         eyebrow: "Para iPhone, iPad, Mac y Apple TV",
         title: "Todo tu contenido.\nUn reproductor precioso.",
         subtitle:
-            "TV en vivo, películas, series y música de tus listas IPTV, Plex, Jellyfin y Emby, juntos en una app hecha para dispositivos Apple.",
+            "TV en vivo, películas, series, música, fotos y libros de tus listas IPTV y de tu propio servidor Plex, Jellyfin, Emby, Navidrome o Immich, juntos en una app hecha para dispositivos Apple.",
         note: "Descarga gratuita. Chimera no incluye contenido: tú aportas tus propias fuentes.",
     },
     devices: {
@@ -66,21 +67,41 @@ const es: Strings = {
             "Chromecast en iPhone, iPad y Mac",
         ],
     },
-    more: {
-        eyebrow: "Música, libros y fotos",
-        title: "Mucho más que películas.",
-        music: {
-            title: "Música",
-            body: "Escucha tu servidor de música con listas, favoritos y letras.",
+    selfhost: {
+        eyebrow: "Para quien tiene su propio servidor",
+        title: "Tu servidor merece una app preciosa.",
+        body: "Conecta Chimera a los servidores que ya tienes. Habla directamente con ellos —sin cuenta, sin intermediarios, sin nube de por medio— y los convierte en una sola biblioteca nativa en cada dispositivo Apple.",
+        servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
+        video: {
+            servers: "Plex · Jellyfin · Emby",
+            title: "Películas y series",
+            body: "Toda tu biblioteca con carátulas, temporadas y episodios, y Seguir viendo, que te acompaña del iPhone al Apple TV.",
+            points: ["MKV, HEVC y AC-3 se reproducen con el motor alternativo automático", "Descargas para ver sin conexión", "Subtítulos y pistas de audio a tu gusto"],
         },
-        books: {
-            title: "Libros",
-            body: "Lee libros EPUB y PDF de tu propia biblioteca o de un catálogo.",
+        music: {
+            servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
+            title: "Música",
+            body: "Una app de música a la altura de tu colección: álbumes, artistas, listas y letras, con Ahora suena en la pantalla bloqueada.",
+            points: ["Descarga tus archivos originales para escuchar sin conexión", "Listas y favoritos", "La letra de la canción que suena"],
         },
         photos: {
+            servers: "Immich",
             title: "Fotos",
-            body: "Explora tu fototeca por año, mes o álbum.",
+            body: "Tu biblioteca de Immich por año, mes o álbum, en una galería rápida a pantalla completa en iPhone, iPad, Mac y Apple TV.",
+            points: ["Años, meses y álbumes", "Vista a pantalla completa", "Guarda fotos en tu dispositivo"],
         },
+        books: {
+            servers: "Komga · Catálogos OPDS · Project Gutenberg",
+            title: "Libros",
+            body: "Conecta un catálogo OPDS como Komga y lee libros EPUB y PDF en un lector pensado para cada dispositivo.",
+            points: ["Recuerda dónde te quedaste leyendo", "Descarga libros para leer sin conexión", "Clásicos gratuitos de Project Gutenberg"],
+        },
+        direct: [
+            { title: "Directo a tu servidor", body: "Nada pasa por un servidor de Chimera: no existe ninguno." },
+            { title: "Todos tus servidores, una app", body: "Añade varios servidores, dale a cada uno un nombre y un color, y cambia con un toque." },
+            { title: "Una sola biblioteca", body: "Con Chimera Pro, la música y las fotos de todos tus servidores se unen." },
+            { title: "Las contraseñas no se mueven", body: "Las credenciales de tus servidores viven en el llavero de tu dispositivo." },
+        ],
     },
     sources: {
         eyebrow: "Tus fuentes",
@@ -130,6 +151,10 @@ const es: Strings = {
                 a: "No. Chimera es solo un reproductor. Tú añades tus propias fuentes: una suscripción IPTV que tengas autorización para usar, tu propio servidor Plex, Jellyfin o Emby, o tu propio almacenamiento en la nube.",
             },
             {
+                q: "¿Funciona con mi servidor Plex, Jellyfin o Emby?",
+                a: "Sí. Añade tu servidor como fuente y Chimera muestra sus películas, series y música. Plex inicia sesión con tu cuenta de Plex; Jellyfin y Emby usan la dirección del servidor, tu usuario y tu contraseña.",
+            },
+            {
                 q: "¿Qué fuentes puedo añadir?",
                 a: "Listas Xtream Codes y M3U, servidores Plex, Jellyfin y Emby, Navidrome o Subsonic para música, Immich para fotos, catálogos de libros OPDS, y Dropbox o MEGA.",
             },
@@ -175,6 +200,10 @@ const es: Strings = {
         sources: "Añadir una fuente en Chimera: Xtream, M3U, Plex, Jellyfin y más",
         macBook: "La ficha de un libro en Chimera para Mac",
         tvPhoto: "Una foto de Júpiter en el Apple TV",
+        detailDark: "La ficha de una película de un servidor multimedia, con Reproducir y Descargar",
+        musicAlbum: "Un álbum de Chopin con sus canciones, Reproducir y Aleatorio",
+        photoViewer: "Una foto de Júpiter a pantalla completa",
+        reader: "Una página de Las aventuras de Sherlock Holmes en el lector",
     },
 };
 
