@@ -821,15 +821,15 @@ ul {
 }
 
 .aurora-amber {
-    background: linear-gradient(160deg, #3a1d0c, #8a4512 55%, #e09a4a);
+    background: #8a4512;
 }
 
 .aurora-sea {
-    background: linear-gradient(160deg, #0c2a3a, #1d5f7a 55%, #8fc6d6);
+    background: #1d5f7a;
 }
 
 .aurora-violet {
-    background: linear-gradient(160deg, #10082a, #33208a 55%, #8a7cff);
+    background: #33208a;
 }
 
 .aurora-amber .pane-a,
@@ -1567,7 +1567,7 @@ ul {
 }
 
 .host-video .aurora-night {
-    background: linear-gradient(160deg, #050b1f, #0b2a6b 60%, #1f5fd1);
+    background: #0b2a6b;
 }
 
 .direct-grid {
