@@ -1,0 +1,12 @@
+// Cloudflare Workers (static assets) — serves the Astro build in dist/.
+// Workers Builds: build command `npm run build`, deploy command `npx wrangler deploy`.
+// public/_redirects and public/_headers are honored by Workers static assets.
+{
+    "name": "chimera-one",
+    "compatibility_date": "2025-10-01",
+    "assets": {
+        "directory": "./dist",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page"
+    }
+}
