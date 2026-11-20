@@ -773,7 +773,8 @@ ul {
     box-shadow: var(--shadow-device);
 }
 
-/* ---------- Abstract art (Aurora) ---------- */
+/* ---------- Abstract art (Aurora) ----------
+   Color fields with soft glass panes. No glows. */
 
 .aurora {
     position: absolute;
@@ -781,13 +782,6 @@ ul {
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
-}
-
-.aurora .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.9;
 }
 
 .aurora .pane {
@@ -801,30 +795,6 @@ ul {
 
 .aurora-hero {
     background: var(--panorama);
-}
-
-.aurora-hero .orb-a {
-    width: 46vw;
-    height: 46vw;
-    inset-block-start: -18vw;
-    inset-inline-end: -10vw;
-    background: radial-gradient(circle, #9bd8ff 0%, transparent 65%);
-}
-
-.aurora-hero .orb-b {
-    width: 40vw;
-    height: 40vw;
-    inset-block-end: -20vw;
-    inset-inline-start: -12vw;
-    background: radial-gradient(circle, #003bb8 0%, transparent 70%);
-}
-
-.aurora-hero .orb-c {
-    width: 26vw;
-    height: 26vw;
-    inset-block-start: 35%;
-    inset-inline-start: 42%;
-    background: radial-gradient(circle, rgb(255 255 255 / 0.35) 0%, transparent 70%);
 }
 
 .aurora-hero .pane-a {
@@ -843,47 +813,10 @@ ul {
     transform: rotate(-12deg);
 }
 
-.aurora-night .orb-a {
-    width: 60vw;
-    height: 40vw;
-    inset-block-start: -10vw;
-    inset-inline-start: 20vw;
-    background: radial-gradient(ellipse, rgb(10 92 255 / 0.45) 0%, transparent 65%);
-}
-
-.aurora-night .orb-b {
-    width: 40vw;
-    height: 40vw;
-    inset-block-end: -10vw;
-    inset-inline-end: -10vw;
-    background: radial-gradient(circle, rgb(88 60 255 / 0.3) 0%, transparent 65%);
-}
-
-.aurora-night .orb-c,
-.aurora-night .pane,
-.aurora-soft .pane,
 .aurora-amber .pane-b,
 .aurora-sea .pane-b,
-.aurora-violet .pane-b {
-    display: none;
-}
-
-.aurora-soft .orb-a {
-    width: 70%;
-    height: 70%;
-    inset: 15%;
-    background: radial-gradient(circle, rgb(42 157 255 / 0.35) 0%, transparent 70%);
-}
-
-.aurora-soft .orb-b {
-    width: 40%;
-    height: 40%;
-    inset-block-start: 5%;
-    inset-inline-end: 5%;
-    background: radial-gradient(circle, rgb(124 200 255 / 0.45) 0%, transparent 70%);
-}
-
-.aurora-soft .orb-c {
+.aurora-violet .pane-b,
+.aurora-night .pane {
     display: none;
 }
 
@@ -897,32 +830,6 @@ ul {
 
 .aurora-violet {
     background: linear-gradient(160deg, #10082a, #33208a 55%, #8a7cff);
-}
-
-.aurora-amber .orb-a,
-.aurora-sea .orb-a,
-.aurora-violet .orb-a {
-    width: 80%;
-    height: 60%;
-    inset-block-start: -20%;
-    inset-inline-start: -20%;
-    background: radial-gradient(circle, rgb(255 255 255 / 0.28) 0%, transparent 65%);
-}
-
-.aurora-amber .orb-b,
-.aurora-sea .orb-b,
-.aurora-violet .orb-b {
-    width: 70%;
-    height: 50%;
-    inset-block-end: -10%;
-    inset-inline-end: -20%;
-    background: radial-gradient(circle, rgb(0 0 0 / 0.35) 0%, transparent 65%);
-}
-
-.aurora-amber .orb-c,
-.aurora-sea .orb-c,
-.aurora-violet .orb-c {
-    display: none;
 }
 
 .aurora-amber .pane-a,
