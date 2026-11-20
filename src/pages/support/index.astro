@@ -4,7 +4,6 @@
 import Base from "../../layouts/Base.astro";
 import { english } from "../../i18n";
 import { supportEmail } from "../../site";
-import Aurora from "../../components/Aurora.astro";
 ---
 
 <Base locale={english} title="Support — Chimera" description="Get help with Chimera: contact, adding sources, playback, Chimera Pro and more." page="support/">
@@ -12,7 +11,6 @@ import Aurora from "../../components/Aurora.astro";
 <h1>Support</h1>
 <p class="lead">Questions, problems or ideas? We'd love to hear from you.</p>
 <div class="contact-card">
-<Aurora variant="hero" />
 <span>Email</span>
 <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
 <span>We usually reply within a few days. Please include your device, its OS version and the type of source you use (for example Jellyfin or M3U).</span>

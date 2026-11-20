@@ -21,14 +21,14 @@ const es: Strings = {
     },
     hero: {
         eyebrow: "Para iPhone, iPad, Mac y Apple TV",
-        title: "Todo tu contenido.\nUn reproductor precioso.",
+        title: "Todo tu contenido,\nen una sola app.",
         subtitle:
-            "TV en vivo, películas, series, música, fotos y libros de tus listas IPTV y de tu propio servidor Plex, Jellyfin, Emby, Navidrome o Immich, juntos en una app hecha para dispositivos Apple.",
-        note: "Descarga gratuita. Chimera no incluye contenido: tú aportas tus propias fuentes.",
+            "TV en vivo, películas, series, música, fotos y libros de tus listas IPTV y de tu propio servidor Plex, Jellyfin, Emby, Navidrome o Immich. Hecho para iPhone, iPad, Mac y Apple TV.",
+        note: "Descarga gratuita. Chimera no incluye contenido; tú añades tus propias fuentes.",
     },
     devices: {
-        title: "Una app en cada pantalla Apple.",
-        body: "Tus favoritos, tu progreso y tus fuentes se sincronizan con iCloud, así que lo que empiezas en un dispositivo te espera en el siguiente.",
+        title: "Empieza en una pantalla. Termina en otra.",
+        body: "Tus favoritos, tu progreso y tus fuentes se sincronizan con iCloud.",
         iphone: "iPhone",
         ipad: "iPad",
         mac: "Mac",
@@ -36,7 +36,7 @@ const es: Strings = {
     },
     live: {
         eyebrow: "TV en vivo",
-        title: "Hacer zapping, sin esfuerzo.",
+        title: "TV en vivo con una guía de verdad.",
         body: "Explora los canales por categoría, mira qué dan ahora y después, y cambia de canal con un toque.",
         points: [
             "Una guía de TV completa con lo que dan ahora y después",
@@ -47,8 +47,8 @@ const es: Strings = {
     },
     library: {
         eyebrow: "Películas y series",
-        title: "Tu biblioteca, por fin en casa.",
-        body: "Fichas detalladas, temporadas y episodios, y Seguir viendo, que recuerda exactamente dónde lo dejaste.",
+        title: "Sigue donde lo dejaste.",
+        body: "Fichas con carátulas y reparto, todas las temporadas y episodios, y Seguir viendo en todos tus dispositivos.",
         points: [
             "Carátulas, reparto y detalles de cada título",
             "Seguir viendo e historial",
@@ -68,9 +68,9 @@ const es: Strings = {
         ],
     },
     selfhost: {
-        eyebrow: "Para quien tiene su propio servidor",
-        title: "Tu servidor merece una app preciosa.",
-        body: "Conecta Chimera a los servidores que ya tienes. Habla directamente con ellos —sin cuenta, sin intermediarios, sin nube de por medio— y los convierte en una sola biblioteca nativa en cada dispositivo Apple.",
+        eyebrow: "Autoalojamiento",
+        title: "Hecho para tu propio servidor.",
+        body: "Añade los servidores que ya tienes. Chimera se conecta a ellos directamente, sin cuenta ni intermediarios, y lo muestra todo como una sola biblioteca en cada uno de tus dispositivos Apple.",
         servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
         video: {
             servers: "Plex · Jellyfin · Emby",
@@ -81,13 +81,13 @@ const es: Strings = {
         music: {
             servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
             title: "Música",
-            body: "Una app de música a la altura de tu colección: álbumes, artistas, listas y letras, con Ahora suena en la pantalla bloqueada.",
+            body: "Álbumes, artistas, listas y letras, con Ahora suena en la pantalla bloqueada.",
             points: ["Descarga tus archivos originales para escuchar sin conexión", "Listas y favoritos", "La letra de la canción que suena"],
         },
         photos: {
             servers: "Immich",
             title: "Fotos",
-            body: "Tu biblioteca de Immich por año, mes o álbum, en una galería rápida a pantalla completa en iPhone, iPad, Mac y Apple TV.",
+            body: "Tu biblioteca de Immich por año, mes o álbum, a pantalla completa en iPhone, iPad, Mac y Apple TV.",
             points: ["Años, meses y álbumes", "Vista a pantalla completa", "Guarda fotos en tu dispositivo"],
         },
         books: {
@@ -97,7 +97,7 @@ const es: Strings = {
             points: ["Recuerda dónde te quedaste leyendo", "Descarga libros para leer sin conexión", "Clásicos gratuitos de Project Gutenberg"],
         },
         direct: [
-            { title: "Directo a tu servidor", body: "Nada pasa por un servidor de Chimera: no existe ninguno." },
+            { title: "Directo a tu servidor", body: "Chimera no tiene servidor propio, así que nada pasa por uno." },
             { title: "Todos tus servidores, una app", body: "Añade varios servidores, dale a cada uno un nombre y un color, y cambia con un toque." },
             { title: "Una sola biblioteca", body: "Con Chimera Pro, la música y las fotos de todos tus servidores se unen." },
             { title: "Las contraseñas no se mueven", body: "Las credenciales de tus servidores viven en el llavero de tu dispositivo." },
@@ -106,7 +106,7 @@ const es: Strings = {
     sources: {
         eyebrow: "Tus fuentes",
         title: "Trae lo que ya tienes.",
-        body: "Chimera es solo un reproductor: no incluye canales, películas ni música. Conecta los servicios que usas y dale a cada fuente un nombre y un color.",
+        body: "Chimera es un reproductor. No incluye canales, películas ni música. Conecta los servicios que usas y dale a cada fuente un nombre y un color.",
         list: [
             "Xtream Codes",
             "Listas M3U",
@@ -135,11 +135,11 @@ const es: Strings = {
     },
     privacy: {
         eyebrow: "Privacidad",
-        title: "Privado por diseño.",
+        title: "Sin cuenta. Sin rastreo.",
         points: [
-            { title: "Sin cuenta", body: "Abre la app y añade una fuente. Eso es todo." },
-            { title: "Sin rastreo", body: "Chimera no te rastrea, y el desarrollador nunca recibe tus datos." },
-            { title: "Llavero", body: "Las contraseñas se quedan en el llavero de tu dispositivo y nunca se sincronizan." },
+            { title: "Nada que registrar", body: "Abre la app y añade una fuente." },
+            { title: "Nada se rastrea", body: "Chimera no te rastrea, y el desarrollador nunca recibe tus datos." },
+            { title: "Las contraseñas se quedan en el dispositivo", body: "Están en el llavero y nunca se sincronizan." },
         ],
         link: "Leer la política de privacidad (en inglés)",
     },
@@ -174,8 +174,8 @@ const es: Strings = {
         more: "Más respuestas en la página de soporte (en inglés)",
     },
     cta: {
-        title: "Tu contenido te espera.",
-        body: "Descarga Chimera y añade tu primera fuente.",
+        title: "Descarga Chimera.",
+        body: "Gratis en iPhone, iPad, Mac y Apple TV.",
     },
     footer: {
         support: "Soporte",

@@ -4,7 +4,7 @@ const hr: Strings = {
     meta: {
         title: "Chimera — IPTV i medijski player za iPhone, iPad, Mac i Apple TV",
         description:
-            "TV uživo, filmovi, serije i glazba s tvojih IPTV popisa, Plexa, Jellyfina i Embyja — u jednom playeru za iPhone, iPad, Mac i Apple TV.",
+            "TV uživo, filmovi, serije i glazba s tvojih IPTV popisa, Plexa, Jellyfina i Embyja, u jednom playeru za iPhone, iPad, Mac i Apple TV.",
     },
     nav: {
         features: "Značajke",
@@ -21,14 +21,14 @@ const hr: Strings = {
     },
     hero: {
         eyebrow: "Za iPhone, iPad, Mac i Apple TV",
-        title: "Svi tvoji mediji.\nJedan prekrasan player.",
+        title: "Svi tvoji mediji,\nu jednoj aplikaciji.",
         subtitle:
-            "TV uživo, filmovi, serije, glazba, fotografije i knjige s tvojih IPTV popisa i vlastitog Plex, Jellyfin, Emby, Navidrome ili Immich poslužitelja — zajedno u jednoj aplikaciji stvorenoj za Apple uređaje.",
-        note: "Besplatno preuzimanje. Chimera ne sadrži sadržaj — koristiš vlastite izvore.",
+            "TV uživo, filmovi, serije, glazba, fotografije i knjige s tvojih IPTV popisa i vlastitog Plex, Jellyfin, Emby, Navidrome ili Immich poslužitelja. Za iPhone, iPad, Mac i Apple TV.",
+        note: "Besplatno preuzimanje. Chimera ne sadrži sadržaj; dodaješ vlastite izvore.",
     },
     devices: {
-        title: "Jedna aplikacija na svakom Apple zaslonu.",
-        body: "Favoriti, napredak gledanja i tvoji izvori sinkroniziraju se putem iClouda, pa te ono što započneš na jednom uređaju čeka na sljedećem.",
+        title: "Počni na jednom zaslonu. Završi na drugom.",
+        body: "Favoriti, napredak gledanja i tvoji izvori sinkroniziraju se putem iClouda.",
         iphone: "iPhone",
         ipad: "iPad",
         mac: "Mac",
@@ -36,7 +36,7 @@ const hr: Strings = {
     },
     live: {
         eyebrow: "TV uživo",
-        title: "Prebacivanje kanala bez napora.",
+        title: "TV uživo s pravim vodičem.",
         body: "Pregledavaj kanale po kategorijama, vidi što je sada i sljedeće na programu i promijeni kanal jednim dodirom.",
         points: [
             "Potpuni TV vodič s onim što je sada i sljedeće",
@@ -47,8 +47,8 @@ const hr: Strings = {
     },
     library: {
         eyebrow: "Filmovi i serije",
-        title: "Tvoja zbirka, napokon kod kuće.",
-        body: "Bogate stranice s detaljima, sezone i epizode te Nastavi gledati, koji točno pamti gdje si stao.",
+        title: "Nastavlja gdje si stao.",
+        body: "Stranice s naslovnicama i glumcima, sve sezone i epizode te Nastavi gledati na svim tvojim uređajima.",
         points: [
             "Naslovnice, glumci i detalji za svaki naslov",
             "Nastavi gledati i povijest",
@@ -68,9 +68,9 @@ const hr: Strings = {
         ],
     },
     selfhost: {
-        eyebrow: "Za one s vlastitim poslužiteljem",
-        title: "Tvoj poslužitelj zaslužuje prekrasnu aplikaciju.",
-        body: "Poveži Chimeru s poslužiteljima koje već imaš. Razgovara s njima izravno — bez računa, bez posrednika, bez oblaka između — i pretvara ih u jednu izvornu zbirku na svakom Apple uređaju.",
+        eyebrow: "Vlastiti poslužitelj",
+        title: "Stvorena za tvoj poslužitelj.",
+        body: "Dodaj poslužitelje koje već imaš. Chimera se s njima povezuje izravno, bez računa i bez posrednika, i prikazuje sve kao jednu zbirku na svakom tvom Apple uređaju.",
         servers: ["Plex", "Jellyfin", "Emby", "Navidrome", "Subsonic", "Immich", "Komga", "OPDS"],
         video: {
             servers: "Plex · Jellyfin · Emby",
@@ -81,13 +81,13 @@ const hr: Strings = {
         music: {
             servers: "Navidrome · Subsonic · Plex · Jellyfin · Emby",
             title: "Glazba",
-            body: "Glazbena aplikacija dostojna tvoje kolekcije: albumi, izvođači, popisi za reprodukciju i tekstovi, uz Upravo svira na zaključanom zaslonu.",
+            body: "Albumi, izvođači, popisi za reprodukciju i tekstovi, uz Upravo svira na zaključanom zaslonu.",
             points: ["Preuzmi izvorne datoteke za slušanje izvan mreže", "Popisi za reprodukciju i favoriti", "Tekst pjesme koja svira"],
         },
         photos: {
             servers: "Immich",
             title: "Fotografije",
-            body: "Tvoja Immich zbirka po godini, mjesecu ili albumu, u brzoj galeriji preko cijelog zaslona na iPhoneu, iPadu, Macu i Apple TV-u.",
+            body: "Tvoja Immich zbirka po godini, mjesecu ili albumu, preko cijelog zaslona na iPhoneu, iPadu, Macu i Apple TV-u.",
             points: ["Godine, mjeseci i albumi", "Prikaz preko cijelog zaslona", "Spremi fotografije na uređaj"],
         },
         books: {
@@ -97,7 +97,7 @@ const hr: Strings = {
             points: ["Pamti gdje si stao s čitanjem", "Preuzmi knjige za čitanje izvan mreže", "Besplatni klasici s Project Gutenberga"],
         },
         direct: [
-            { title: "Izravno do tvog poslužitelja", body: "Ništa ne prolazi kroz Chimerin poslužitelj — takav ne postoji." },
+            { title: "Izravno do tvog poslužitelja", body: "Chimera nema vlastiti poslužitelj, pa ništa ne prolazi kroz njega." },
             { title: "Svi poslužitelji, jedna aplikacija", body: "Dodaj više poslužitelja, svakom daj ime i boju i prebacuj se jednim dodirom." },
             { title: "Jedna zbirka", body: "Uz Chimera Pro glazba i fotografije sa svih tvojih poslužitelja su na jednom mjestu." },
             { title: "Lozinke ostaju na mjestu", body: "Podaci za prijavu na poslužitelje čuvaju se u privjesku ključeva uređaja." },
@@ -106,7 +106,7 @@ const hr: Strings = {
     sources: {
         eyebrow: "Tvoji izvori",
         title: "Donesi ono što već imaš.",
-        body: "Chimera je samo player — ne sadrži kanale, filmove ni glazbu. Poveži usluge koje koristiš i svakom izvoru daj ime i boju.",
+        body: "Chimera je player. Ne sadrži kanale, filmove ni glazbu. Poveži usluge koje koristiš i svakom izvoru daj ime i boju.",
         list: [
             "Xtream Codes",
             "M3U popisi",
@@ -135,11 +135,11 @@ const hr: Strings = {
     },
     privacy: {
         eyebrow: "Privatnost",
-        title: "Privatnost od samog početka.",
+        title: "Bez računa. Bez praćenja.",
         points: [
-            { title: "Bez računa", body: "Otvori aplikaciju i dodaj izvor. To je sve." },
-            { title: "Bez praćenja", body: "Chimera te ne prati, a razvojni programer nikad ne prima tvoje podatke." },
-            { title: "Privjesak ključeva", body: "Lozinke ostaju u privjesku ključeva tvog uređaja i nikad se ne sinkroniziraju." },
+            { title: "Nema registracije", body: "Otvori aplikaciju i dodaj izvor." },
+            { title: "Ništa se ne prati", body: "Chimera te ne prati, a razvojni programer nikad ne prima tvoje podatke." },
+            { title: "Lozinke ostaju na uređaju", body: "Čuvaju se u privjesku ključeva i nikad se ne sinkroniziraju." },
         ],
         link: "Pročitaj Pravila privatnosti (na engleskom)",
     },
@@ -174,8 +174,8 @@ const hr: Strings = {
         more: "Više odgovora na stranici podrške (na engleskom)",
     },
     cta: {
-        title: "Tvoji mediji te čekaju.",
-        body: "Preuzmi Chimeru i dodaj svoj prvi izvor.",
+        title: "Preuzmi Chimeru.",
+        body: "Besplatno za iPhone, iPad, Mac i Apple TV.",
     },
     footer: {
         support: "Podrška",
