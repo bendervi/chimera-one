@@ -1,0 +1,48 @@
+---
+// Glass navigation bar. The phone menu and the language picker are <details>
+// elements — no JavaScript.
+import { type Locale, english, href } from "../i18n";
+import logo from "../assets/logo.svg?raw";
+import { storeURL } from "../site";
+import LanguagePicker from "./LanguagePicker.astro";
+
+interface Props {
+    locale: Locale;
+    page: string;
+    localized: boolean;
+}
+
+const { locale, page, localized } = Astro.props;
+const t = locale.strings.nav;
+const home = href(locale);
+// Support and Privacy are English-only pages.
+const support = href(english, "support/");
+---
+
+<header class="nav">
+    <nav class="nav-inner" aria-label="Chimera">
+        <a class="nav-brand" href={home} aria-current={page === "" ? "page" : undefined}>
+            <span class="nav-logo" set:html={logo} aria-hidden="true" />
+            <span>Chimera</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href={`${home}#features`}>{t.features}</a></li>
+            <li><a href={`${home}#pro`}>{t.pro}</a></li>
+            <li><a href={support} aria-current={page === "support/" ? "page" : undefined}>{t.support}</a></li>
+        </ul>
+        <div class="nav-actions">
+            {localized && <LanguagePicker locale={locale} page={page} />}
+            <a class="nav-download" href={storeURL("web-nav")}>{t.download}</a>
+            <details class="nav-menu">
+                <summary aria-label={t.menu}>
+                    <span class="nav-menu-icon" aria-hidden="true" />
+                </summary>
+                <ul>
+                    <li><a href={`${home}#features`}>{t.features}</a></li>
+                    <li><a href={`${home}#pro`}>{t.pro}</a></li>
+                    <li><a href={support}>{t.support}</a></li>
+                </ul>
+            </details>
+        </div>
+    </nav>
+</header>

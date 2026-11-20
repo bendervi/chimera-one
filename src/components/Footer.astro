@@ -1,0 +1,27 @@
+---
+import { type Locale, english, href } from "../i18n";
+import { copyright, termsURL } from "../site";
+import LanguagePicker from "./LanguagePicker.astro";
+
+interface Props {
+    locale: Locale;
+    page: string;
+    localized: boolean;
+}
+
+const { locale, page, localized } = Astro.props;
+const t = locale.strings.footer;
+---
+
+<footer class="footer">
+    <div class="wrap footer-inner">
+        <nav class="footer-links" aria-label={t.support}>
+            <a href={href(english, "support/")}>{t.support}</a>
+            <a href={href(english, "privacy/")}>{t.privacy}</a>
+            <a href={termsURL}>{t.terms}</a>
+        </nav>
+        {localized && <LanguagePicker locale={locale} page={page} placement="up" />}
+        <p class="footer-legal">{t.trademarks}</p>
+        <p class="footer-legal">{copyright}</p>
+    </div>
+</footer>

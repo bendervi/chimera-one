@@ -1,0 +1,42 @@
+---
+// Language menu (a <details> popover — no JavaScript). Each entry is a plain
+// link to the same page in that language, named in its own language.
+import { type Locale, locales, href } from "../i18n";
+
+interface Props {
+    locale: Locale;
+    page: string;
+    placement?: "down" | "up";
+}
+
+const { locale, page, placement = "down" } = Astro.props;
+---
+
+<details class:list={["lang", `lang-${placement}`]}>
+    <summary aria-label={locale.strings.nav.language}>
+        <svg viewBox="0 0 20 20" width="17" height="17" aria-hidden="true"
+            ><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.4"></circle><path
+                d="M2 10h16M10 2c2.4 2.3 3.6 5 3.6 8s-1.2 5.7-3.6 8c-2.4-2.3-3.6-5-3.6-8S7.6 4.3 10 2Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"></path></svg
+        >
+        <span class="lang-current">{locale.name}</span>
+    </summary>
+    <ul>
+        {
+            locales.map((l) => (
+                <li>
+                    <a
+                        href={href(l, page)}
+                        hreflang={l.tag}
+                        lang={l.tag}
+                        aria-current={l === locale ? "true" : undefined}
+                    >
+                        {l.name}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</details>

@@ -1,0 +1,13 @@
+---
+// English home at the site root.
+import Base from "../layouts/Base.astro";
+import Home from "../components/Home.astro";
+import { english } from "../i18n";
+import { homeJSONLD } from "./_home-data";
+
+const t = english.strings;
+---
+
+<Base locale={english} title={t.meta.title} description={t.meta.description} page="" localized jsonLD={homeJSONLD(english)}>
+    <Home locale={english} />
+</Base>

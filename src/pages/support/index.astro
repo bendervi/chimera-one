@@ -1,20 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Support — Chimera</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<main>
-<nav><a href="./">Chimera</a><a href="support.html" aria-current="page">Support</a><a href="privacy.html">Privacy</a></nav>
+---
+// Support. English only. Ported from the original support/ page — keep the
+// wording in step with the app (privacy changes need the owner).
+import Base from "../../layouts/Base.astro";
+import { english } from "../../i18n";
+import { supportEmail } from "../../site";
+import Aurora from "../../components/Aurora.astro";
+---
 
+<Base locale={english} title="Support — Chimera" description="Get help with Chimera: contact, adding sources, playback, Chimera Pro and more." page="support/">
+    <article class="doc">
 <h1>Support</h1>
 <p class="lead">Questions, problems or ideas? We'd love to hear from you.</p>
-<div class="card">
-<strong>Email:</strong> <a href="mailto:bnj.dervisevic@gmail.com">bnj.dervisevic@gmail.com</a><br>
-<span class="muted">We usually reply within a few days. Please include your device, its OS version and the type of source you use (for example Jellyfin or M3U).</span>
+<div class="contact-card">
+<Aurora variant="hero" />
+<span>Email</span>
+<a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+<span>We usually reply within a few days. Please include your device, its OS version and the type of source you use (for example Jellyfin or M3U).</span>
 </div>
 
 <h2>Frequently asked questions</h2>
@@ -44,9 +45,6 @@
 <p>The free version on iPhone and iPad occasionally shows an ad after you close a video — never during playback, and never on Mac or Apple TV. Ads are non-personalized and Chimera doesn't track you. In the EEA, the UK and Switzerland you can change your ad consent in <em>Settings → General → Ad Privacy Settings</em>. Chimera Pro removes ads.</p>
 
 <h3>Where are my passwords stored?</h3>
-<p>Only on your device, in the system Keychain. See the <a href="privacy.html">Privacy Policy</a>.</p>
-
-<footer>© 2026 Benjamin Dervisevic</footer>
-</main>
-</body>
-</html>
+<p>Only on your device, in the system Keychain. See the <a href="/privacy/">Privacy Policy</a>.</p>
+    </article>
+</Base>

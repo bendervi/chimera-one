@@ -1,0 +1,68 @@
+---
+// Page shell: head (SEO, Smart App Banner, hreflang, Open Graph), glass nav,
+// footer. No scripts, no cookies, no third-party requests.
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { type Locale, locales, href } from "../i18n";
+import { appStoreID } from "../site";
+
+interface Props {
+    locale: Locale;
+    title: string;
+    description: string;
+    /** Page path within a locale ("" = home, "support/" …). */
+    page: string;
+    /** Pages that exist in every locale get hreflang alternates and a language picker. */
+    localized?: boolean;
+    jsonLD?: object[];
+}
+
+const { locale, title, description, page, localized = false, jsonLD = [] } = Astro.props;
+const site = Astro.site ?? new URL("https://getchimera.app");
+const canonical = new URL(href(locale, page), site).href;
+const ogImage = new URL("/og.png", site).href;
+---
+
+<!doctype html>
+<html lang={locale.tag} dir={locale.dir}>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        {
+            localized &&
+                locales.map((l) => (
+                    <link rel="alternate" hreflang={l.tag} href={new URL(href(l, page), site).href} />
+                ))
+        }
+        {localized && <link rel="alternate" hreflang="x-default" href={new URL(page ? `/${page}` : "/", site).href} />}
+        <meta name="apple-itunes-app" content={`app-id=${appStoreID}`} />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#0a5cff" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Chimera" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content={locale.og} />
+        <meta name="twitter:card" content="summary_large_image" />
+        {jsonLD.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to content</a>
+        <Nav locale={locale} page={page} localized={localized} />
+        <main id="main">
+            <slot />
+        </main>
+        <Footer locale={locale} page={page} localized={localized} />
+    </body>
+</html>

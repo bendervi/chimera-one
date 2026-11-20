@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /receiver/
+
+Sitemap: https://getchimera.app/sitemap.xml

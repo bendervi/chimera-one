@@ -1,19 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Apple TV Privacy Policy — Chimera</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<main>
-<nav><a href="./">Chimera</a><a href="support.html">Support</a><a href="privacy.html" aria-current="page">Privacy</a></nav>
+---
+// Privacy Policy for Apple TV. English only. Ported from the original privacy/tv/ page — keep the
+// wording in step with the app (privacy changes need the owner).
+import Base from "../../layouts/Base.astro";
+import { english } from "../../i18n";
+import { supportEmail } from "../../site";
+---
 
+<Base locale={english} title="Privacy Policy for Apple TV — Chimera" description="How Chimera for Apple TV handles your data: no accounts, no ads, no analytics and no tracking." page="privacy/tv/">
+    <article class="doc">
 <h1>Privacy Policy for Apple TV</h1>
-<p class="muted">Effective November 2026</p>
+<p class="meta">Effective November 2026</p>
 <div class="card"><strong>In short:</strong> Chimera for Apple TV does not collect, sell or share your personal data. There are no accounts, no advertising, no analytics and no tracking, and the developer never receives your data.</div>
-<p>This page covers the Apple TV app. For iPhone, iPad and Mac, see the <a href="privacy.html">Chimera Privacy Policy</a>.</p>
+<p>This page covers the Apple TV app. For iPhone, iPad and Mac, see the <a href="/privacy/">Chimera Privacy Policy</a>.</p>
 
 <h2>Data we collect</h2>
 <p>None. The developer of Chimera runs no servers that receive information from the app, and the Apple TV app contains no advertising, analytics or tracking software. Unlike the iPhone and iPad app, it doesn't include Google's Cast SDK.</p>
@@ -46,6 +44,9 @@
 <h2>Local network</h2>
 <p>Local network access is used to reach media servers on your home network and to receive a source sent from your iPhone. Nothing found on your network is sent anywhere else.</p>
 
+<h2>This website</h2>
+<p>getchimera.app is a static website hosted on GitHub Pages. It sets no cookies, runs no analytics or advertising, and loads nothing from other companies. Like any web host, GitHub receives your IP address to deliver the pages; see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>. Links to the App Store include a campaign name so App Store Connect can count how many downloads came from this site, without identifying you.</p>
+
 <h2>Children</h2>
 <p>Chimera does not knowingly collect information from anyone, including children.</p>
 
@@ -53,9 +54,6 @@
 <p>If this policy changes, the updated version will be posted on this page with a new effective date.</p>
 
 <h2>Contact</h2>
-<p>Questions about privacy: <a href="mailto:bnj.dervisevic@gmail.com">bnj.dervisevic@gmail.com</a></p>
-
-<footer>© 2026 Benjamin Dervisevic</footer>
-</main>
-</body>
-</html>
+<p>Questions about privacy: <a href={`mailto:${supportEmail}`}>{supportEmail}</a></p>
+    </article>
+</Base>

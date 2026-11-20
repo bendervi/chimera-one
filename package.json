@@ -1,0 +1,13 @@
+{
+  "name": "getchimera-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-receiver.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

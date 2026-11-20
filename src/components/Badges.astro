@@ -1,0 +1,43 @@
+---
+// Official, unmodified Apple badges (marketing guidelines: no recoloring,
+// minimum 40 px tall, clear space around them), localized where Apple offers
+// the language. Links carry an App Analytics campaign.
+import type { Locale } from "../i18n";
+import { storeURL } from "../site";
+
+interface Props {
+    locale: Locale;
+    campaign: string;
+    tone?: "black" | "white";
+    mac?: boolean;
+}
+
+const { locale, campaign, tone = "black", mac = true } = Astro.props;
+
+const badges = import.meta.glob<{ default: ImageMetadata }>("../assets/badges/*.svg", { eager: true });
+function badge(kind: string, lang: string) {
+    const key = `../assets/badges/${kind}-${tone}-${lang}.svg`;
+    return (badges[key] ?? badges[`../assets/badges/${kind}-${tone}-en-us.svg`]).default;
+}
+const ios = badge("download-on-the-app-store", locale.badge);
+const macBadge = badge("download-on-the-mac-app-store", locale.macBadge);
+---
+
+<div class="badges">
+    <a href={storeURL(campaign)} class="badge-link">
+        <img src={ios.src} width={ios.width} height={ios.height} alt={locale.strings.badges.ios} class="badge" />
+    </a>
+    {
+        mac && (
+            <a href={storeURL(`${campaign}-mac`, true)} class="badge-link">
+                <img
+                    src={macBadge.src}
+                    width={macBadge.width}
+                    height={macBadge.height}
+                    alt={locale.strings.badges.mac}
+                    class="badge"
+                />
+            </a>
+        )
+    }
+</div>
